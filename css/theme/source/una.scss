@@ -17,10 +17,10 @@
 
 
 // Override theme settings (see ../template/settings.scss)
-$backgroundColor: #222;
+$backgroundColor: #b589b2;
 
-$mainColor: #fff;
-$headingColor: #fff;
+$mainColor: #222;
+$headingColor: #222;
 
 $mainFontSize: 42px;
 $mainFont: 'Racing Sans One', Helvetica, sans-serif;
@@ -33,9 +33,9 @@ $linkColor: #42affa;
 $linkColorHover: lighten( $linkColor, 15% );
 $selectionBackgroundColor: lighten( $linkColor, 25% );
 
-$heading1Size: 2.5em;
-$heading2Size: 1.6em;
-$heading3Size: 1.3em;
+$heading1Size: 2.25em;
+$heading2Size: 1.4em;
+$heading3Size: 1.1em;
 $heading4Size: 1.0em;
 
 section.has-light-background {
@@ -50,5 +50,23 @@ section.has-light-background {
 // ---------------------------------------------
 
 .reveal .shadow {
-	text-shadow: 8px 8px 0 rgba(0, 0, 0, 0.5);
+	text-shadow: 5px 5px 0 rgba(255, 255, 255, 0.5);
+}
+
+.reveal .fullframe {
+	width:100%; 
+	height:90vh;
+	background: white;
+}
+
+.reveal .highlightEl {
+  --highlighter-pen: url('../img/highlighter.png');
+  --highlighter-color: cyan;
+  --highlighter-path: path("M0,46L50,50"), path("M0,52L50,44");
+  --highlighter-size: 35;
+  --highlighter-opacity: 1;
+  --highlighter-smooth: 1;
+  --highlighter-progress: 0;
+  transition: --highlighter-progress 500ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  background: paint(highlighter);
 }

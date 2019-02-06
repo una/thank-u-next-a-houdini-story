@@ -20,17 +20,23 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+
+		<!-- Worklets -->
+		<script>
+		CSS.paintWorklet.addModule('./highlighter.js')
+		</script>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
 				<section data-background="./img/thankunextcover.jpg">
+					<h1 class="highlightEl highlightEl2" style="--highlighter-progress:1;"><span>A Houdini Story</span></h1>
 					<h1 class="shadow">A Houdini Story</h1>
 					<h2 class="shadow">Una Kravets | @una</h2>
 				</section>
 				<section>About Me Slide</section>
 				<section>
-					<h2>Today taught me...</h2>
+					<h2>She taught me...</h2>
 					<ul>
 						<li class="fragment">What is Houdini</li>
 						<li class="fragment">Houdini APIs</li>
@@ -39,7 +45,27 @@
 						<li class="fragment">Something Extra(.CSS)</li>
 					</ul>
 				</section>
-				<section></section>
+				<section>
+					Houdini what is it image
+				</section>
+				<section>
+					<iframe class="fullframe" src="https://ishoudinireadyyet.com" frameborder="0"></iframe>
+				</section>
+				<section>
+					<h1>Properties & Values</h1>
+					<h1 class="fragment">Paint API</h1>
+				</section>
+				<section>
+					Properties and Values
+				</section>
+				
+					<section>
+						Paint API
+					</section>
+					<section>
+							<h2>Houdini Worklet</h2>
+							how houdini worklets image
+						</section>
 			</div>
 		</div>
 
@@ -51,6 +77,9 @@
 			// - https://github.com/hakimel/reveal.js#configuration
 			// - https://github.com/hakimel/reveal.js#dependencies
 			Reveal.initialize({
+				history: true,
+				transition: 'fade',
+
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
