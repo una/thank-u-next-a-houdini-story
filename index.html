@@ -20,11 +20,6 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
-
-		<!-- Worklets -->
-		<script>
-		CSS.paintWorklet.addModule('./highlighter.js')
-		</script>
 	</head>
 	<body>
 		<div class="reveal">
@@ -56,16 +51,904 @@
 					<h1 class="fragment">Paint API</h1>
 				</section>
 				<section>
-					Properties and Values
+          Houdini is a low-level API for CSS
+          <aside class="notes">Houdini is a mix of worklets (lighter versions of service workers) and custom property declarations</aside>
 				</section>
-				
-					<section>
-						Paint API
-					</section>
-					<section>
-							<h2>Houdini Worklet</h2>
-							how houdini worklets image
-						</section>
+        <section>
+          <img src="img/05-spec-coverage-opt.png" alt="">
+          <small class="source">smashingmagazine.com/2016/03/houdini-maybe-the-most-exciting-development-in-css-youve-never-heard-of/</small>
+        </section>
+        <section data-background="white">
+          <img src="img/07-service-workers.jpg" alt="">
+          <aside class="notes">Who here has heard of Service Workers?</aside>
+        </section>
+        <section data-background="#F1F2F7">
+          <img src="img/pwa-part-3-service-worker.svg" alt="">
+          <small class="source">vea.re/blog/making-your-website-fast-and-offline-available-with-a-service-worker</small>
+          <aside class="notes">
+            Service workers run in a separate process outside of your browser JS, before you even hit the page. They can be used for serving content offline, sending push notifications when you're not on the site, and a lot more because of how they're downloaded and stored for future use.
+          </aside>
+        </section>
+        <section data-background="white">
+            <img src="img/24-houdini.png" alt="">
+            <aside class="notes">For the first time ever, users have access to the CSSOM</aside>
+          </section>
+        <section>
+          <h1>The Houdini Project is About User-Extensible CSS</h1>
+          <aside class="notes">And that's exciting! Houdini lets developers get ahead of and around the browser vendors, so we don't have to wait for implementation -- it's like a polyfill without needing to be a polyfill, and cross-browser compatible</aside>
+        </section>
+        <section>
+          <img style="height: 80vh;" src="img/csshoudini.gif" alt="">
+          <aside class="notes">the big dog is browsers chugging along on the CSS spec, the little pupper is houdini. this brings us real creative control and endless possibilities!</aside>
+        </section>
+				<section>
+          <h1>JS in CSS?!</h1>
+				</section>
+
+				<!-- 04. HOUDINI OVERVIEW -->
+				<section>
+					<iframe style="height:800px; width: 100%; background: white" src="https://ishoudinireadyyet.com" frameborder="0"></iframe>
+        </section>
+        <section>
+          <h1>Properties & Values</h1>
+          <a class="primaryLink" href="http://drafts.css-houdini.org/css-properties-values-api/">drafts.css-houdini.org/css-properties-values-api/</a>
+        </section>
+        <section>
+          CSS Variables = CSS Custom Properties
+        </section>
+        <section>
+          CSS Custom Properties++
+          <aside class="notes">
+            This spec is like CSS Variables with some bonuses - i.e. they can be animatable because they have actual semantic meaning
+          </aside>
+        </section>
+        <section>
+          <code>
+            CSS.registerProperty({
+              name: "--my-color",
+              syntax: "&lt;color&gt;",
+              initialValue: "black",
+              inherits: false
+            });
+          </code>
+          <small><a href="https://drafts.css-houdini.org/css-properties-values-api/">drafts.css-houdini.org/css-properties-values-api/</a></small>
+          <aside class="notes">With a registered property, you are telling the browser what to expect, so you can get errors for having invalid syntax. You can also transition the poperty based on its syntax. Color, for example, works as a transition. Let's take a look at that previous example again.</aside>
+        </section>
+        <!-- Example Start -->
+<section>
+  <div class="livecode stretch no-console">
+    <pre><code class="html" title="index.html">
+<div class="box"></div>
+</code></pre>
+<pre><code class="css" title="style.css">
+.box {
+  --color: red;
+  background: linear-gradient(var(--color), deeppink);
+  transition: --color 1s;
+  width: 50vw;
+  height: 90vh;
+  display: block;
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
+.box:hover {
+  --color: blue;
+}
+</code></pre>
+  <pre><code class="javascript" title="colorStop.js">
+CSS.registerProperty({ 
+  name: '--color-stop', 
+  syntax: '&lt;color&gt;', 
+  inherits: false, 
+  initialValue: 'transparent'
+})
+</code></pre>
+  </div>
+<small>css-houdini.rocks/animating-gradient</small>
+<aside class="notes">Show as color first, then show JS registering the property, and then change all color to color-stop</aside>
+</section>
+<!-- Example End -->
+        <section>
+          <h2>Current Syntax's</h2>
+          <ul class="itemList">
+            <li><span>"&lt;length&gt;"</span>: Any valid &lt;length> value</li>
+            <li><span>"&lt;number&gt;"</span>: &lt;number> values</li>
+            <li><span>"&lt;percentage&gt;"</span>: Any valid &lt;percentage> value</li>
+            <li><span>"&lt;length-percentage&gt;"</span>: Any valid &lt;length> or &lt;percentage> value, any valid &lt;calc()> expression combining &lt;length> and &lt;percentage> components.</li>
+            <li><span>"&lt;color&gt;"</span>: Any valid &lt;color> value</li>
+            <li><span>"&lt;image&gt;"</span>: Any valid &lt;image> value</li>
+            <li><span>"&lt;url&gt;"</span>: Any valid &lt;url> value</li>
+            <li><span>"&lt;integer&gt;"</span>: Any valid &lt;integer> value</li>
+            <li><span>"&lt;angle&gt;"</span>: Any valid &lt;angle> value</li>
+            <li><span>"&lt;time&gt;"</span>: Any valid &lt;time> value</li>
+            <li><span>"&lt;resolution&gt;"</span>: Any valid &lt;resolution> value</li>
+            <li><span>"&lt;transform-function&gt;"</span>: Any valid &lt;transform-function> value</li>
+            <li><span>"&lt;custom-ident&gt;"</span>:Any valid &lt;custom-ident> value</li>
+          </ul>
+          <small class="source">https://drafts.css-houdini.org/css-properties-values-api/ | 22 September 2018</small>
+        </section>
+        <!-- Example Start -->
+        <section>
+          <div class="livecode stretch no-console">
+            <pre><code class="html" title="index.html">
+        <div class="box"></div>
+        </code></pre>
+        <pre><code class="css" title="style.css">.box {
+  background: var(--colorPrimary);
+  transition-duration: 1s;
+  width: 50vw;
+  height: 90vh;
+  display: block;
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
+.box:hover {
+  background: var(--colorSecondary);
+}
+        </code></pre>
+          <pre><code class="javascript" title="colorStop.js">
+CSS.registerProperty({ 
+  name: '--colorPrimary', 
+  syntax: '&lt;color&gt;', 
+  inherits: false, 
+  initialValue: 'blueviolet'
+})
+CSS.registerProperty({ 
+  name: '--colorSecondary', 
+  syntax: '&lt;color&gt;', 
+  inherits: false, 
+  initialValue: 'deeppink'
+})
+</code></pre>
+          </div>
+        <aside class="notes">Add `--colorPrimary: red;` and show it works // Ass `--colorPrimary: red;` to show it will error and default to the original value of violet // then show how with just a variable :root {
+            --ourVar: yellow;
+          }, update the variable in local scope of box, then make the varr 23 an show this wouldnt work without setting the custom property</aside>
+        </section>
+        <section>
+          <h2>"Typed CSS Variables"</h2>
+        </section>
+        <!-- Example End -->
+    <section>
+        <h1>Typed OM</h1>
+        <a href="www.w3.org/TR/css-typed-om-1/" class="primaryLink">w3.org/TR/css-typed-om-1/</a>
+      </section>
+      <section>
+        Current CSSOM is <u>String Based</u>
+      </section>
+      <section>
+        "This specification introduces a new way to interact with underlying values, by representing them with specialized JS objects that can be manipulated and understood more easily and more reliably than string parsing/concatenation"
+        <small class="source">w3.org/TR/css-typed-om-1</small>
+      </section>
+      <section>
+        CSS values ➡️ typed JavaScript objects
+        <aside class="notes">exposes CSS values as typed JavaScript objects, instead of a simple strings -- this means performance improvements for the browser!</aside>
+      </section>
+      <section>
+        <div class="flex">
+        <code class="half code-editor smallerText">comment   \/\*[^*]*\*+([^/*][^*]*\*+)*\/
+num       [0-9]+|[0-9]*"."[0-9]+
+nonascii  [\200-\377]
+nmstart   [_a-z]|{nonascii}|{escape}
+nmchar    [_a-z0-9-]|{nonascii}|{escape}
+name      {nmchar}+
+ident     {nmstart}{nmchar}*</code>
+        <code class="half code-editor smallerText">ruleset
+: selector [ ',' S* selector ]*
+  '{' S* declaration [ ';' S* declaration ]* '}' S*
+;
+selector
+: simple_selector [ combinator selector | S+ [ combinator? selector ]? ]?
+;
+simple_selector
+: element_name [ HASH | class | attrib | pseudo ]*
+| [ HASH | class | attrib | pseudo ]+
+;
+class
+: '.' IDENT
+;
+element_name
+: IDENT | '*'
+;
+attrib
+: '[' S* IDENT S* [ [ '=' | INCLUDES | DASHMATCH ] S*
+  [ IDENT | STRING ] S* ] ']'
+;
+pseudo
+: ':' [ IDENT | FUNCTION S* [IDENT S*] ')' ]
+;</code>
+        </div>
+        <small class="source">html5rocks.com/en/tutorials/internals/howbrowserswork</small>
+        <aside class="notes">CSS parsing now</aside>
+      </section>
+      <section>
+        <img src="img/css-parsing.png" alt="">
+        <small class="source">html5rocks.com/en/tutorials/internals/howbrowserswork</small>
+        <aside class="notes">With Houdini, you can *tell* the browser what to expect. Instead of a string the browser needs to parse, the browser gets a CSS unit value object</aside>
+      </section>
+      <section>
+        <p>Current CSS:</p>
+        <code>element.attributeStyleMap.get('height') //returns string</code>
+        <div class="fragment">
+        <br>
+        <p>Houdini Typed OM:</p>
+        <code>element.computedStyleMap().get('height') //returns CSSUnitValue</code>
+        </div>
+        <br>
+        <small class="source">github.com/w3c/css-houdini-drafts/blob/master/css-typed-om/README.md</small>
+      </section>
+      <section>
+          <h1>Paint Worklet</h1>
+          <aside class="notes"> Properties like background-image or border-image are usually used with url() to load an image file or with CSS built-in functions like linear-gradient(). Instead of using those, you can now use paint(myPainter) to reference a paint worklet -- you can create your own CSS functions and images!
+          </aside>
+        </section>
+        <!-- <section data-background="white">
+          <img src="img/24-houdini.png" alt="">
+          <aside class="notes">
+            This works in the Paint layer here -- we'll talk more about that more in depth in a second when we get to building our demo from scratch at the end
+          </aside>
+        </section> -->
+<!-- Example Start -->
+<section>
+    <div class="livecode stretch no-console">
+      <pre><code class="html" title="index.html">
+<header class="placeholder"></header>
+<div class="content-wrapper">
+  <main>
+    <h1>Awesome Mockup</h1>
+    <p>This uses placeholder boxes created with the CSS Paint API. Neat! You can resize them by dragging their bottom right corners.</p>
+    <div class="row">
+      <div class="placeholder"></div>
+      <div class="placeholder"></div>
+      <div class="placeholder"></div>
+    </div>
+  </main>
+  <aside>
+    <div class="placeholder"></div>
+  </aside>
+</div>
+
+  <!-- Register Module -->
+  <script>
+    CSS.paintWorklet.addModule('PlaceholderBoxPainter.js');
+  </script>
+  </code></pre>
+      <pre><code class="javascript" title="PlaceholderBoxPainter.js">
+if (typeof registerPaint !== 'undefined') {
+  class PlaceholderBoxPainter {
+    paint(ctx, size) {
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#666';
+
+      // draw line from top left to bottom right
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(size.width, size.height);
+      ctx.stroke();
+
+      // draw line from top right to bottom left
+      ctx.beginPath();
+      ctx.moveTo(size.width, 0);
+      ctx.lineTo(0, size.height);
+      ctx.stroke();
+    }
+  }
+
+  registerPaint('placeholder-box', PlaceholderBoxPainter);
+}
+  </code></pre>
+      <pre><code class="css" title="style.css">
+.placeholder {
+  background-image: paint(placeholder-box);
+
+  background-color: #fff;
+  max-width: 100%;
+  border: 2px solid #666;
+  overflow: auto;
+  resize: both;
+}
+
+header {
+  width: 600px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.content-wrapper {
+  display: flex;
+  width: 600px;
+  margin: 40px auto 0;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+main {
+  width: 440px;
+  font-family: 'Dank Mono';
+}
+
+main .placeholder {
+  float: left;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+
+aside {
+  width: 140px;
+  margin-left: 20px;
+}
+
+aside .placeholder {
+  width: 140px;
+  height: 320px;
+  margin: 0 auto;
+}     
+  </code></pre>
+    </div>
+    <small>by Will Boyd: codepen.io/lonekorean/pen/wmwJQX</small>
+  </section>
+  <!-- Example End -->
+  <section data-background="white">
+    <img src="img/houdinidiagram2.png" alt="">
+  </section>
+    <!-- Example Start -->
+  <section>
+    <div class="livecode stretch no-console">
+      <pre><code class="html" title="index.html">
+  <h1 class="speech">Hello World!</h1>
+  <br/><br/>
+  <h2 class="speech">What a Wonderful Life! I Can Keep Going!</h2>
+  <br/><br/>
+  <p class="speech">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi, aliquid nemo earum perspiciatis harum nihil sint expedita labore, architecto maxime in error officia iusto iure. <br><br>Alias similique error vero ab!Minus ad provident a omnis, porro eum iste quia at eaque vel quidem neque dolorum? Aliquam provident rem id in repellat impedit voluptatum tempora, odit vero eaque dolorem, cum voluptatibus?<br><br>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi, aliquid nemo earum perspiciatis harum nihil sint expedita labore, architecto maxime in error officia iusto iure. <br><br>Alias similique error vero ab!Minus ad provident a omnis, porro eum iste quia at eaque vel quidem neque dolorum? Aliquam provident rem id in repellat impedit voluptatum tempora, odit vero eaque dolorem, cum voluptatibus?</p>
+  
+  <!-- Register Module -->
+  <script>
+    CSS.paintWorklet.addModule('rainbowtize.js');
+  </script>
+  </code></pre>
+      <pre><code class="javascript" title="rainbowtize.js">
+  if (typeof registerPaint !== 'undefined') {
+    class Rainbowtize {
+      paint(ctx, size) {
+        const w = size.width;
+        const h = size.height;
+        
+        for (var i = 0; i < h; i++) {
+          for (var j = 0; j < w; j++) {
+            ctx.fillStyle = 'rgb(' + 
+              Math.floor(255 - 20 * i) + ', ' +   
+              Math.floor(255 - 20 * j) + ', 200)';
+            ctx.fillRect(j * 25, i * 25, 25, 25);
+          }
+        }
+      }
+    }
+  
+    registerPaint('rainbowtize', Rainbowtize);
+  }
+  </code></pre>
+      <pre><code class="css" title="style.css">
+  .speech {
+    background-image: paint(rainbowtize);
+    padding: 1em;
+    display: inline-block;
+    border-radius: 20px;
+    font-family: 'Dank Mono'
+  }
+  </code></pre>
+    </div>
+  </section>
+  <!-- Example End -->
+<!-- Example Start -->
+<section>
+    <div class="livecode stretch no-console">
+      <pre><code class="html" title="index.html">
+  <div class="box"></div> 
+
+  <!-- Register Module -->
+  <script>
+    CSS.paintWorklet.addModule('conic-gradient.js');
+  </script>
+  </code></pre>
+      <pre><code class="javascript" title="conic-gradient.js">
+const window = {}
+
+// TinyColor v1.4.1
+// https://github.com/bgrins/TinyColor
+// 2016-07-07, Brian Grinstead, MIT License
+!function(a){function b(a,d){if(a=a?a:"",d=d||{},a instanceof b)return a;if(!(this instanceof b))return new b(a,d);var e=c(a);this._originalInput=a,this._r=e.r,this._g=e.g,this._b=e.b,this._a=e.a,this._roundA=P(100*this._a)/100,this._format=d.format||e.format,this._gradientType=d.gradientType,this._r<1&&(this._r=P(this._r)),this._g<1&&(this._g=P(this._g)),this._b<1&&(this._b=P(this._b)),this._ok=e.ok,this._tc_id=O++}function c(a){var b={r:0,g:0,b:0},c=1,e=null,g=null,i=null,j=!1,k=!1;return"string"==typeof a&&(a=K(a)),"object"==typeof a&&(J(a.r)&&J(a.g)&&J(a.b)?(b=d(a.r,a.g,a.b),j=!0,k="%"===String(a.r).substr(-1)?"prgb":"rgb"):J(a.h)&&J(a.s)&&J(a.v)?(e=G(a.s),g=G(a.v),b=h(a.h,e,g),j=!0,k="hsv"):J(a.h)&&J(a.s)&&J(a.l)&&(e=G(a.s),i=G(a.l),b=f(a.h,e,i),j=!0,k="hsl"),a.hasOwnProperty("a")&&(c=a.a)),c=z(c),{ok:j,format:a.format||k,r:Q(255,R(b.r,0)),g:Q(255,R(b.g,0)),b:Q(255,R(b.b,0)),a:c}}function d(a,b,c){return{r:255*A(a,255),g:255*A(b,255),b:255*A(c,255)}}function e(a,b,c){a=A(a,255),b=A(b,255),c=A(c,255);var d,e,f=R(a,b,c),g=Q(a,b,c),h=(f+g)/2;if(f==g)d=e=0;else{var i=f-g;switch(e=h>.5?i/(2-f-g):i/(f+g),f){case a:d=(b-c)/i+(c>b?6:0);break;case b:d=(c-a)/i+2;break;case c:d=(a-b)/i+4}d/=6}return{h:d,s:e,l:h}}function f(a,b,c){function d(a,b,c){return 0>c&&(c+=1),c>1&&(c-=1),1/6>c?a+6*(b-a)*c:.5>c?b:2/3>c?a+6*(b-a)*(2/3-c):a}var e,f,g;if(a=A(a,360),b=A(b,100),c=A(c,100),0===b)e=f=g=c;else{var h=.5>c?c*(1+b):c+b-c*b,i=2*c-h;e=d(i,h,a+1/3),f=d(i,h,a),g=d(i,h,a-1/3)}return{r:255*e,g:255*f,b:255*g}}function g(a,b,c){a=A(a,255),b=A(b,255),c=A(c,255);var d,e,f=R(a,b,c),g=Q(a,b,c),h=f,i=f-g;if(e=0===f?0:i/f,f==g)d=0;else{switch(f){case a:d=(b-c)/i+(c>b?6:0);break;case b:d=(c-a)/i+2;break;case c:d=(a-b)/i+4}d/=6}return{h:d,s:e,v:h}}function h(b,c,d){b=6*A(b,360),c=A(c,100),d=A(d,100);var e=a.floor(b),f=b-e,g=d*(1-c),h=d*(1-f*c),i=d*(1-(1-f)*c),j=e%6,k=[d,h,g,g,i,d][j],l=[i,d,d,h,g,g][j],m=[g,g,i,d,d,h][j];return{r:255*k,g:255*l,b:255*m}}function i(a,b,c,d){var e=[F(P(a).toString(16)),F(P(b).toString(16)),F(P(c).toString(16))];return d&&e[0].charAt(0)==e[0].charAt(1)&&e[1].charAt(0)==e[1].charAt(1)&&e[2].charAt(0)==e[2].charAt(1)?e[0].charAt(0)+e[1].charAt(0)+e[2].charAt(0):e.join("")}function j(a,b,c,d,e){var f=[F(P(a).toString(16)),F(P(b).toString(16)),F(P(c).toString(16)),F(H(d))];return e&&f[0].charAt(0)==f[0].charAt(1)&&f[1].charAt(0)==f[1].charAt(1)&&f[2].charAt(0)==f[2].charAt(1)&&f[3].charAt(0)==f[3].charAt(1)?f[0].charAt(0)+f[1].charAt(0)+f[2].charAt(0)+f[3].charAt(0):f.join("")}function k(a,b,c,d){var e=[F(H(d)),F(P(a).toString(16)),F(P(b).toString(16)),F(P(c).toString(16))];return e.join("")}function l(a,c){c=0===c?0:c||10;var d=b(a).toHsl();return d.s-=c/100,d.s=B(d.s),b(d)}function m(a,c){c=0===c?0:c||10;var d=b(a).toHsl();return d.s+=c/100,d.s=B(d.s),b(d)}function n(a){return b(a).desaturate(100)}function o(a,c){c=0===c?0:c||10;var d=b(a).toHsl();return d.l+=c/100,d.l=B(d.l),b(d)}function p(a,c){c=0===c?0:c||10;var d=b(a).toRgb();return d.r=R(0,Q(255,d.r-P(255*-(c/100)))),d.g=R(0,Q(255,d.g-P(255*-(c/100)))),d.b=R(0,Q(255,d.b-P(255*-(c/100)))),b(d)}function q(a,c){c=0===c?0:c||10;var d=b(a).toHsl();return d.l-=c/100,d.l=B(d.l),b(d)}function r(a,c){var d=b(a).toHsl(),e=(d.h+c)%360;return d.h=0>e?360+e:e,b(d)}function s(a){var c=b(a).toHsl();return c.h=(c.h+180)%360,b(c)}function t(a){var c=b(a).toHsl(),d=c.h;return[b(a),b({h:(d+120)%360,s:c.s,l:c.l}),b({h:(d+240)%360,s:c.s,l:c.l})]}function u(a){var c=b(a).toHsl(),d=c.h;return[b(a),b({h:(d+90)%360,s:c.s,l:c.l}),b({h:(d+180)%360,s:c.s,l:c.l}),b({h:(d+270)%360,s:c.s,l:c.l})]}function v(a){var c=b(a).toHsl(),d=c.h;return[b(a),b({h:(d+72)%360,s:c.s,l:c.l}),b({h:(d+216)%360,s:c.s,l:c.l})]}function w(a,c,d){c=c||6,d=d||30;var e=b(a).toHsl(),f=360/d,g=[b(a)];for(e.h=(e.h-(f*c>>1)+720)%360;--c;)e.h=(e.h+f)%360,g.push(b(e));return g}function x(a,c){c=c||6;for(var d=b(a).toHsv(),e=d.h,f=d.s,g=d.v,h=[],i=1/c;c--;)h.push(b({h:e,s:f,v:g})),g=(g+i)%1;return h}function y(a){var b={};for(var c in a)a.hasOwnProperty(c)&&(b[a[c]]=c);return b}function z(a){return a=parseFloat(a),(isNaN(a)||0>a||a>1)&&(a=1),a}function A(b,c){D(b)&&(b="100%");var d=E(b);return b=Q(c,R(0,parseFloat(b))),d&&(b=parseInt(b*c,10)/100),a.abs(b-c)<1e-6?1:b%c/parseFloat(c)}function B(a){return Q(1,R(0,a))}function C(a){return parseInt(a,16)}function D(a){return"string"==typeof a&&-1!=a.indexOf(".")&&1===parseFloat(a)}function E(a){return"string"==typeof a&&-1!=a.indexOf("%")}function F(a){return 1==a.length?"0"+a:""+a}function G(a){return 1>=a&&(a=100*a+"%"),a}function H(b){return a.round(255*parseFloat(b)).toString(16)}function I(a){return C(a)/255}function J(a){return!!V.CSS_UNIT.exec(a)}function K(a){a=a.replace(M,"").replace(N,"").toLowerCase();var b=!1;if(T[a])a=T[a],b=!0;else if("transparent"==a)return{r:0,g:0,b:0,a:0,format:"name"};var c;return(c=V.rgb.exec(a))?{r:c[1],g:c[2],b:c[3]}:(c=V.rgba.exec(a))?{r:c[1],g:c[2],b:c[3],a:c[4]}:(c=V.hsl.exec(a))?{h:c[1],s:c[2],l:c[3]}:(c=V.hsla.exec(a))?{h:c[1],s:c[2],l:c[3],a:c[4]}:(c=V.hsv.exec(a))?{h:c[1],s:c[2],v:c[3]}:(c=V.hsva.exec(a))?{h:c[1],s:c[2],v:c[3],a:c[4]}:(c=V.hex8.exec(a))?{r:C(c[1]),g:C(c[2]),b:C(c[3]),a:I(c[4]),format:b?"name":"hex8"}:(c=V.hex6.exec(a))?{r:C(c[1]),g:C(c[2]),b:C(c[3]),format:b?"name":"hex"}:(c=V.hex4.exec(a))?{r:C(c[1]+""+c[1]),g:C(c[2]+""+c[2]),b:C(c[3]+""+c[3]),a:I(c[4]+""+c[4]),format:b?"name":"hex8"}:(c=V.hex3.exec(a))?{r:C(c[1]+""+c[1]),g:C(c[2]+""+c[2]),b:C(c[3]+""+c[3]),format:b?"name":"hex"}:!1}function L(a){var b,c;return a=a||{level:"AA",size:"small"},b=(a.level||"AA").toUpperCase(),c=(a.size||"small").toLowerCase(),"AA"!==b&&"AAA"!==b&&(b="AA"),"small"!==c&&"large"!==c&&(c="small"),{level:b,size:c}}var M=/^\s+/,N=/\s+$/,O=0,P=a.round,Q=a.min,R=a.max,S=a.random;b.prototype={isDark:function(){return this.getBrightness()<128},isLight:function(){return!this.isDark()},isValid:function(){return this._ok},getOriginalInput:function(){return this._originalInput},getFormat:function(){return this._format},getAlpha:function(){return this._a},getBrightness:function(){var a=this.toRgb();return(299*a.r+587*a.g+114*a.b)/1e3},getLuminance:function(){var b,c,d,e,f,g,h=this.toRgb();return b=h.r/255,c=h.g/255,d=h.b/255,e=.03928>=b?b/12.92:a.pow((b+.055)/1.055,2.4),f=.03928>=c?c/12.92:a.pow((c+.055)/1.055,2.4),g=.03928>=d?d/12.92:a.pow((d+.055)/1.055,2.4),.2126*e+.7152*f+.0722*g},setAlpha:function(a){return this._a=z(a),this._roundA=P(100*this._a)/100,this},toHsv:function(){var a=g(this._r,this._g,this._b);return{h:360*a.h,s:a.s,v:a.v,a:this._a}},toHsvString:function(){var a=g(this._r,this._g,this._b),b=P(360*a.h),c=P(100*a.s),d=P(100*a.v);return 1==this._a?"hsv("+b+", "+c+"%, "+d+"%)":"hsva("+b+", "+c+"%, "+d+"%, "+this._roundA+")"},toHsl:function(){var a=e(this._r,this._g,this._b);return{h:360*a.h,s:a.s,l:a.l,a:this._a}},toHslString:function(){var a=e(this._r,this._g,this._b),b=P(360*a.h),c=P(100*a.s),d=P(100*a.l);return 1==this._a?"hsl("+b+", "+c+"%, "+d+"%)":"hsla("+b+", "+c+"%, "+d+"%, "+this._roundA+")"},toHex:function(a){return i(this._r,this._g,this._b,a)},toHexString:function(a){return"#"+this.toHex(a)},toHex8:function(a){return j(this._r,this._g,this._b,this._a,a)},toHex8String:function(a){return"#"+this.toHex8(a)},toRgb:function(){return{r:P(this._r),g:P(this._g),b:P(this._b),a:this._a}},toRgbString:function(){return 1==this._a?"rgb("+P(this._r)+", "+P(this._g)+", "+P(this._b)+")":"rgba("+P(this._r)+", "+P(this._g)+", "+P(this._b)+", "+this._roundA+")"},toPercentageRgb:function(){return{r:P(100*A(this._r,255))+"%",g:P(100*A(this._g,255))+"%",b:P(100*A(this._b,255))+"%",a:this._a}},toPercentageRgbString:function(){return 1==this._a?"rgb("+P(100*A(this._r,255))+"%, "+P(100*A(this._g,255))+"%, "+P(100*A(this._b,255))+"%)":"rgba("+P(100*A(this._r,255))+"%, "+P(100*A(this._g,255))+"%, "+P(100*A(this._b,255))+"%, "+this._roundA+")"},toName:function(){return 0===this._a?"transparent":this._a<1?!1:U[i(this._r,this._g,this._b,!0)]||!1},toFilter:function(a){var c="#"+k(this._r,this._g,this._b,this._a),d=c,e=this._gradientType?"GradientType = 1, ":"";if(a){var f=b(a);d="#"+k(f._r,f._g,f._b,f._a)}return"progid:DXImageTransform.Microsoft.gradient("+e+"startColorstr="+c+",endColorstr="+d+")"},toString:function(a){var b=!!a;a=a||this._format;var c=!1,d=this._a<1&&this._a>=0,e=!b&&d&&("hex"===a||"hex6"===a||"hex3"===a||"hex4"===a||"hex8"===a||"name"===a);return e?"name"===a&&0===this._a?this.toName():this.toRgbString():("rgb"===a&&(c=this.toRgbString()),"prgb"===a&&(c=this.toPercentageRgbString()),("hex"===a||"hex6"===a)&&(c=this.toHexString()),"hex3"===a&&(c=this.toHexString(!0)),"hex4"===a&&(c=this.toHex8String(!0)),"hex8"===a&&(c=this.toHex8String()),"name"===a&&(c=this.toName()),"hsl"===a&&(c=this.toHslString()),"hsv"===a&&(c=this.toHsvString()),c||this.toHexString())},clone:function(){return b(this.toString())},_applyModification:function(a,b){var c=a.apply(null,[this].concat([].slice.call(b)));return this._r=c._r,this._g=c._g,this._b=c._b,this.setAlpha(c._a),this},lighten:function(){return this._applyModification(o,arguments)},brighten:function(){return this._applyModification(p,arguments)},darken:function(){return this._applyModification(q,arguments)},desaturate:function(){return this._applyModification(l,arguments)},saturate:function(){return this._applyModification(m,arguments)},greyscale:function(){return this._applyModification(n,arguments)},spin:function(){return this._applyModification(r,arguments)},_applyCombination:function(a,b){return a.apply(null,[this].concat([].slice.call(b)))},analogous:function(){return this._applyCombination(w,arguments)},complement:function(){return this._applyCombination(s,arguments)},monochromatic:function(){return this._applyCombination(x,arguments)},splitcomplement:function(){return this._applyCombination(v,arguments)},triad:function(){return this._applyCombination(t,arguments)},tetrad:function(){return this._applyCombination(u,arguments)}},b.fromRatio=function(a,c){if("object"==typeof a){var d={};for(var e in a)a.hasOwnProperty(e)&&(d[e]="a"===e?a[e]:G(a[e]));a=d}return b(a,c)},b.equals=function(a,c){return a&&c?b(a).toRgbString()==b(c).toRgbString():!1},b.random=function(){return b.fromRatio({r:S(),g:S(),b:S()})},b.mix=function(a,c,d){d=0===d?0:d||50;var e=b(a).toRgb(),f=b(c).toRgb(),g=d/100,h={r:(f.r-e.r)*g+e.r,g:(f.g-e.g)*g+e.g,b:(f.b-e.b)*g+e.b,a:(f.a-e.a)*g+e.a};return b(h)},b.readability=function(c,d){var e=b(c),f=b(d);return(a.max(e.getLuminance(),f.getLuminance())+.05)/(a.min(e.getLuminance(),f.getLuminance())+.05)},b.isReadable=function(a,c,d){var e,f,g=b.readability(a,c);switch(f=!1,e=L(d),e.level+e.size){case"AAsmall":case"AAAlarge":f=g>=4.5;break;case"AAlarge":f=g>=3;break;case"AAAsmall":f=g>=7}return f},b.mostReadable=function(a,c,d){var e,f,g,h,i=null,j=0;d=d||{},f=d.includeFallbackColors,g=d.level,h=d.size;for(var k=0;k<c.length;k++)e=b.readability(a,c[k]),e>j&&(j=e,i=b(c[k]));return b.isReadable(a,i,{level:g,size:h})||!f?i:(d.includeFallbackColors=!1,b.mostReadable(a,["#fff","#000"],d))};var T=b.names={aliceblue:"f0f8ff",antiquewhite:"faebd7",aqua:"0ff",aquamarine:"7fffd4",azure:"f0ffff",beige:"f5f5dc",bisque:"ffe4c4",black:"000",blanchedalmond:"ffebcd",blue:"00f",blueviolet:"8a2be2",brown:"a52a2a",burlywood:"deb887",burntsienna:"ea7e5d",cadetblue:"5f9ea0",chartreuse:"7fff00",chocolate:"d2691e",coral:"ff7f50",cornflowerblue:"6495ed",cornsilk:"fff8dc",crimson:"dc143c",cyan:"0ff",darkblue:"00008b",darkcyan:"008b8b",darkgoldenrod:"b8860b",darkgray:"a9a9a9",darkgreen:"006400",darkgrey:"a9a9a9",darkkhaki:"bdb76b",darkmagenta:"8b008b",darkolivegreen:"556b2f",darkorange:"ff8c00",darkorchid:"9932cc",darkred:"8b0000",darksalmon:"e9967a",darkseagreen:"8fbc8f",darkslateblue:"483d8b",darkslategray:"2f4f4f",darkslategrey:"2f4f4f",darkturquoise:"00ced1",darkviolet:"9400d3",deeppink:"ff1493",deepskyblue:"00bfff",dimgray:"696969",dimgrey:"696969",dodgerblue:"1e90ff",firebrick:"b22222",floralwhite:"fffaf0",forestgreen:"228b22",fuchsia:"f0f",gainsboro:"dcdcdc",ghostwhite:"f8f8ff",gold:"ffd700",goldenrod:"daa520",gray:"808080",green:"008000",greenyellow:"adff2f",grey:"808080",honeydew:"f0fff0",hotpink:"ff69b4",indianred:"cd5c5c",indigo:"4b0082",ivory:"fffff0",khaki:"f0e68c",lavender:"e6e6fa",lavenderblush:"fff0f5",lawngreen:"7cfc00",lemonchiffon:"fffacd",lightblue:"add8e6",lightcoral:"f08080",lightcyan:"e0ffff",lightgoldenrodyellow:"fafad2",lightgray:"d3d3d3",lightgreen:"90ee90",lightgrey:"d3d3d3",lightpink:"ffb6c1",lightsalmon:"ffa07a",lightseagreen:"20b2aa",lightskyblue:"87cefa",lightslategray:"789",lightslategrey:"789",lightsteelblue:"b0c4de",lightyellow:"ffffe0",lime:"0f0",limegreen:"32cd32",linen:"faf0e6",magenta:"f0f",maroon:"800000",mediumaquamarine:"66cdaa",mediumblue:"0000cd",mediumorchid:"ba55d3",mediumpurple:"9370db",mediumseagreen:"3cb371",mediumslateblue:"7b68ee",mediumspringgreen:"00fa9a",mediumturquoise:"48d1cc",mediumvioletred:"c71585",midnightblue:"191970",mintcream:"f5fffa",mistyrose:"ffe4e1",moccasin:"ffe4b5",navajowhite:"ffdead",navy:"000080",oldlace:"fdf5e6",olive:"808000",olivedrab:"6b8e23",orange:"ffa500",orangered:"ff4500",orchid:"da70d6",palegoldenrod:"eee8aa",palegreen:"98fb98",paleturquoise:"afeeee",palevioletred:"db7093",papayawhip:"ffefd5",peachpuff:"ffdab9",peru:"cd853f",pink:"ffc0cb",plum:"dda0dd",powderblue:"b0e0e6",purple:"800080",rebeccapurple:"663399",red:"f00",rosybrown:"bc8f8f",royalblue:"4169e1",saddlebrown:"8b4513",salmon:"fa8072",sandybrown:"f4a460",seagreen:"2e8b57",seashell:"fff5ee",sienna:"a0522d",silver:"c0c0c0",skyblue:"87ceeb",slateblue:"6a5acd",slategray:"708090",slategrey:"708090",snow:"fffafa",springgreen:"00ff7f",steelblue:"4682b4",tan:"d2b48c",teal:"008080",thistle:"d8bfd8",tomato:"ff6347",turquoise:"40e0d0",violet:"ee82ee",wheat:"f5deb3",white:"fff",whitesmoke:"f5f5f5",yellow:"ff0",yellowgreen:"9acd32"},U=b.hexNames=y(T),V=function(){var a="[-\\+]?\\d+%?",b="[-\\+]?\\d*\\.\\d+%?",c="(?:"+b+")|(?:"+a+")",d="[\\s|\\(]+("+c+")[,|\\s]+("+c+")[,|\\s]+("+c+")\\s*\\)?",e="[\\s|\\(]+("+c+")[,|\\s]+("+c+")[,|\\s]+("+c+")[,|\\s]+("+c+")\\s*\\)?";return{CSS_UNIT:new RegExp(c),rgb:new RegExp("rgb"+d),rgba:new RegExp("rgba"+e),hsl:new RegExp("hsl"+d),hsla:new RegExp("hsla"+e),hsv:new RegExp("hsv"+d),hsva:new RegExp("hsva"+e),hex3:/^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,hex6:/^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,hex4:/^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,hex8:/^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/}}();"undefined"!=typeof module&&module.exports?module.exports=b:"function"==typeof define&&define.amd?define(function(){return b}):window.tinycolor=b}(Math);
+
+// ConicalGradient
+// from: https://gist.github.com/aiboy/52715dfae7ca16da9f09
+function ConicalGradient() {
+    this._offsets = [];
+    this._colors = [];
+}
+
+ConicalGradient.prototype = {
+
+    addColorStop: function(offset, color) {
+        this._offsets.push(offset);
+        this._colors.push(color);
+        return this;
+    },
+
+    _offsetsReverse: function(offset, index, array) {
+        array[index] = 1 - offset;
+    },
+
+    fill: function(context, x, y, radius, startAngle, endAngle, anticlockwise) {
+        var offsets = this._offsets;
+        var colors = this._colors;
+        
+        var PI = Math.PI;
+        var TWO_PI = PI * 2;
+
+        if (startAngle < 0) startAngle = startAngle % TWO_PI + TWO_PI;
+        startAngle %= TWO_PI;
+        if (endAngle < 0) endAngle = endAngle % TWO_PI + TWO_PI;
+        endAngle  %= TWO_PI;
+        
+        if (anticlockwise) {
+            var swap   = startAngle;
+            startAngle = endAngle;
+            endAngle   = swap;
+            
+            colors.reverse();
+            offsets.reverse();
+            offsets.forEach(this._offsetsReverse);
+        }
+
+        if (
+            startAngle > endAngle ||
+            Math.abs(endAngle - startAngle) < 0.0001
+        ) endAngle += TWO_PI;
+        
+        var colorsLength = colors.length;
+        
+        var currentColorIndex = 0;
+        var currentColor = colors[currentColorIndex];
+        var nextColor    = colors[currentColorIndex];
+        
+        var prevOffset = 0;
+        var currentOffset = offsets[currentColorIndex];
+        var offsetDist = currentOffset - prevOffset;
+
+        var totalAngleDeg = (endAngle - startAngle) * 180 / PI;
+        var stepAngleRad = (endAngle - startAngle) / totalAngleDeg;
+
+        var arcStartAngle = startAngle;
+        var arcEndAngle;
+
+        var r1 = currentColor[0], g1 = currentColor[1], b1 = currentColor[2], a1 = currentColor[3];
+        var r2 = nextColor[0],    g2 = nextColor[1],    b2 = nextColor[2],    a2 = nextColor[3];
+        if (!a1 && a1 !== 0) a1 = 1;
+        if (!a2 && a2 !== 0) a2 = 1;
+        var rd = r2 - r1, gd = g2 - g1, bd = b2 - b1, ad = a2 - a1;
+        var t, r, g, b, a;
+
+        context.save();
+        for (var i = 0, n = 1 / totalAngleDeg; i < 1; i += n) {
+            if (i >= currentOffset) {
+                currentColorIndex++;
+
+                currentColor = nextColor;
+                r1 = currentColor[0]; g1 = currentColor[1]; b1 = currentColor[2]; a1 = currentColor[3];
+                if (!a1 && a1 !== 0) a1 = 1;
+
+                nextColor = colors[currentColorIndex];
+                r2 = nextColor[0]; g2 = nextColor[1]; b2 = nextColor[2]; a2 = nextColor[3];
+                if (!a2 && a2 !== 0) a2 = 1;
+                
+                rd = r2 - r1; gd = g2 - g1; bd = b2 - b1; ad = a2 - a1;
+                
+                prevOffset = currentOffset;
+                currentOffset = offsets[currentColorIndex];
+                offsetDist = currentOffset - prevOffset;
+            }
+            
+            t = (i - prevOffset) / offsetDist;
+            r = (rd * t + r1) & 255;
+            g = (gd * t + g1) & 255;
+            b = (bd * t + b1) & 255;
+            a = ad * t + a1;
+
+            arcEndAngle = arcStartAngle + stepAngleRad;
+
+            context.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+            context.beginPath();
+            context.moveTo(x, y);
+            context.arc(x, y, radius, arcStartAngle - 0.02, arcEndAngle, false);
+            context.closePath();
+            context.fill();
+
+            arcStartAngle += stepAngleRad;
+        }
+        context.restore();
+
+        return this;
+    }
+};
+
+registerPaint('conic-gradient', class {
+
+  static get inputArguments() {
+    return [
+      '<color>+'
+    ]
+  }
+
+  paint(ctx, geom, props, args) {
+    const conic = new ConicalGradient();
+    // args no longer returns array of args
+    const splittedArgs = args.toString().split(' ');
+    splittedArgs.forEach((color, i) => {
+      const c = window.tinycolor(color.toString()).toRgb();
+      conic.addColorStop(i / (splittedArgs.length - 1), [c.r, c.g, c.b]);
+    })
+    conic.fill(ctx, geom.width / 2, geom.height / 2, geom.width, - Math.PI / 2, Math.PI * 2 - Math.PI / 2, false);
+  }
+});
+  </code></pre>
+      <pre><code class="css" title="style.css">
+.box {
+  background: paint(conic-gradient, red magenta blue cyan lime yellow);
+  width: 50vw;
+  height: 90vh;
+  display: block;
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
+/* Future Syntax with Custom Functions
+
+.box {
+  background: --conic-gradient(red magenta blue cyan lime yellow);
+}
+
+*/
+  </code></pre>
+    </div>
+    <small class="source">css-houdini.rocks</small>
+    <aside class="notes">Explain `&lt;color&gt;+` in the register proeprty means we can have an unlimited list of valeus to follow</aside>
+  </section>
+  <!-- Example End -->
+        <!-- <section>
+          Borders Example: https://css-houdini.rocks/rough-boxes
+        </section>
+        <section>
+          Checkboxes on Forms: https://css-houdini.rocks/checkboxes
+        </section>
+        <section>
+          Corner Shapes: https://css-houdini.rocks/corner-shape
+        </section>
+        <section>
+          Highlighter: https://css-houdini.rocks/highlighter-marker-annotations
+        </section> -->
+				<section>
+          <h1>Layout Worklet</h1>
+          <a class="primaryLink" href="https://github.com/w3c/css-houdini-drafts/blob/master/css-layout-api/EXPLAINER.md">github.com/w3c/css-houdini-drafts</a>
+        </section>
+        <section data-markdown>
+          The CSS Layout API is designed to give web developers the ability to write their *own layout algorithms* in addition to the native algorithms user agents ship with today
+        </section>
+        <section data-background="white">
+          <img src="img/todaytomorrowlayouts.png" alt="">
+          <aside class="notes">Flexbox and Grid are great, but we can extend our own layouts now -- we don't have to wait for things like subgrid or masonry, where we move things around and they re-layout.</aside>
+        </section>
+<!-- Example Start -->
+<section>
+    <div class="livecode stretch no-console no-preview">
+      <pre><code class="javascript" title="overview.js">
+registerLayout('sample-layout', class {
+  // Properties to look for on calling element
+  static get inputProperties() { return ['--foo']; }
+  // Properties to look for on direct child elements
+  static get childrenInputProperties() { return ['--bar']; }
+  // Options for the Layout
+  // `childDisplay` can be 'block' or 'normal'. 'block' is similar to children of flex and grid containers, 'normal'. Otherwise boxes won't be blockified
+  // `sizing` can be 'block-like' or 'manual'. 'block-like' will make the Layout Constraints's inline size be fixed, and block size be calculated like border-box. Otherwise, it's just the calculated inlineSize and blockSize
+  static get layoutOptions() {
+    return {
+      childDisplay: 'normal',
+      sizing: 'block-like'
+    };
+  }
+
+  // Generator functions instead of normal functions to support async/parallel layout engines
+  // Determines how a box fits its content or fits in to our layout context
+  *intrinsicSizes(children, edges, styleMap) {
+    // children - Child elements of box being laid out
+    // edges - Layout Edges of the box being
+    // styleMap - Typed OM style map of box being laid out
+
+    // Intrinsic sizes code goes here.
+  }
+
+  *layout(children, edges, constraints, styleMap, breakToken) {
+    // children - Child elements of Parent Layout
+    // edges - `LayoutEdges` of Parent Layout
+    // constraints - `Layout Constraints` of Parent Layout
+    // styleMap - Typed OM style map of Parent Layout
+    // breakToken - Token (if paginating for printing for example) to resume layout at
+
+    // Layout code goes here.
+  }
+});</code></pre>
+    </div>
+    <small>houdini.glitch.me</small>
+  </section>
+  <!-- Example End -->
+<!-- Example Start -->
+<section>
+    <div class="livecode stretch no-console">
+      <pre><code class="html" title="index.html">
+<main>
+  <div>A</div>
+  <div>B</div>
+  <div>C</div>
+  <div>D</div>
+</main>
+
+<!-- Register Module -->
+<script>
+  CSS.layoutWorklet.addModule('random.js');
+</script>
+  </code></pre>
+      <pre><code class="javascript" title="random.js">
+registerLayout("random", class {
+  *intrinsicSizes() {}
+  
+  *layout(children, edges, constraintSpace, styles) {
+    const childFragments = []
+    console.log(constraintSpace);
+
+    for(const child of children) {
+      const childFragment = yield child.layoutNextFragment();
+      console.log(childFragment);
+      childFragment.inlineOffset = Math.random() * constraintSpace.fixedInlineSize;
+      childFragment.blockOffset = Math.random() * constraintSpace.fixedBlockSize;
+      childFragments.push(childFragment);
+    }
+    return {
+      childFragments
+    };
+  }
+});
+
+/**
+* Copyright 2018 Google Inc. All Rights Reserved.
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*     http://www.apache.org/licenses/LICENSE-2.0
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</code></pre>
+      <pre><code class="css" title="style.css">
+main {
+  width: 500px;
+  height: 500px;
+  outline: 1px solid black;
+  display: layout(random);
+}
+div {
+  width: 200px;
+  height: 200px;
+  background-color: hotpink;
+}
+  </code></pre>
+    </div>
+    <small>github.com/GoogleChromeLabs/houdini-samples</small><br>
+    <small><a href="/layoutTest.html">Open Example in New Window</a></small>
+  </section>
+  <!-- Example End -->
+  <!-- Example Start -->
+<section>
+    <div class="livecode stretch no-console">
+      <pre><code class="html" title="index.html">
+<div>1 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret. Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret.</div>
+<div>2 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret.</div>
+<div>3 Lorem ipsum dolor sit amet.</div>
+<div>4 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret.</div>
+<div>5 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an.</div>
+<div>6 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea.</div>
+<div>7 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret.</div>
+
+<!-- Register Module -->
+<script>
+  CSS.layoutWorklet.addModule('masonry.js');
+</script>
+  </code></pre>
+<pre><code class="javascript" title="masonry.js">
+registerLayout('masonry', class {
+  static get inputProperties() {
+    return [ '--padding', '--columns' ];
+  }
+
+  *intrinsicSizes() { }
+  *layout(children, edges, constraints, styleMap) {
+    const inlineSize = constraints.fixedInlineSize;
+
+    const padding = parseInt(styleMap.get('--padding').toString());
+    const columnValue = styleMap.get('--columns').toString();
+
+    // We also accept 'auto', which will select the BEST number of columns.
+    let columns = parseInt(columnValue);
+    if (columnValue == 'auto' || !columns) {
+      columns = Math.ceil(inlineSize / 350); // MAGIC NUMBER \o/.
+    }
+
+    // Layout all children with simply their column size.
+    const childInlineSize = (inlineSize - ((columns + 1) * padding)) / columns;
+    const childFragments = yield children.map((child) => {
+      return child.layoutNextFragment({fixedInlineSize: childInlineSize});
+    });
+
+    let autoBlockSize = 0;
+    const columnOffsets = Array(columns).fill(0);
+    for (let childFragment of childFragments) {
+      // Select the column with the least amount of stuff in it.
+      const min = columnOffsets.reduce((acc, val, idx) => {
+        if (!acc || val < acc.val) {
+          return {idx, val};
+        }
+
+        return acc;
+      }, {val: +Infinity, idx: -1});
+
+      childFragment.inlineOffset = padding + (childInlineSize + padding) * min.idx;
+      childFragment.blockOffset = padding + min.val;
+
+      columnOffsets[min.idx] = childFragment.blockOffset + childFragment.blockSize;
+      autoBlockSize = Math.max(autoBlockSize, columnOffsets[min.idx] + padding);
+    }
+
+    return {autoBlockSize, childFragments};
+  }
+});
+
+/**
+* Copyright 2018 Google Inc. All Rights Reserved.
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*     http://www.apache.org/licenses/LICENSE-2.0
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</code></pre>
+      <pre><code class="css" title="style.css">
+body {
+  display: layout(masonry);
+  --padding: 20;
+  --columns: 3;
+}
+
+div {
+  background-color: #9365ff;
+  color: white;
+  font: 16px monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+  </code></pre>
+    </div>
+    <small>github.com/GoogleChromeLabs/houdini-samples</small>
+    <aside class="notes">change number of columns and width of body</aside>
+  </section>
+  <!-- Example End -->
+				<section>
+					<h1>Animation Worklet</h1>
+        </section>
+        <section>
+          <p>"A new primitive for creating scroll-linked and other high performance procedural animations on the web"</p>
+          <small class="source">wicg.github.io/animation-worklet</small>
+        </section>
+        <section>
+          <div class="flex">
+          <div class="half">
+              <h2>Web Animation API</h2>
+              <ul style="font-size:70%">
+                <li class="fragment">Animation Timeline</li>
+                <li class="fragment">Document & Effect Timing</li>
+                <li class="fragment">Keyframe Model</li>
+              </ul>
+            </div>
+            <div class="half">
+              <h2>Animation Worklet</h2>
+              <ul style="font-size:70%">
+                <li class="fragment">Scroll-linked animations</li>
+                <li class="fragment">Dedicated Threads (run parallel)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section data-background="white">
+          <img src="img/AnimationWorklet-threading-model.svg" alt="">
+          <small class="source">W3C</small>
+          <aside class="notes">"Animation Worklet animations follow a different timing model that enables them to be script-driven, stateful, and runnable in a parallel worklet execution context. As such Web Animation APIs that seek or alter the input time (reverse, finish, etc.) have different semantics for Animation Worklet animations."</aside>
+        </section>
+        <section>
+          <iframe src="https://googlechromelabs.github.io/houdini-samples/animation-worklet/twitter-header/" width="100%;" height="600px" frameborder="0"></iframe>
+          <small class="source">googlechromelabs.github.io/houdini-samples/animation-worklet/twitter-header/</small>
+        </section>
+        <section>
+          <iframe src="https://googlechromelabs.github.io/houdini-samples/animation-worklet/spring-sticky/" width="100%;" height="600px" frameborder="0"></iframe>
+          <small class="source">googlechromelabs.github.io/houdini-samples/animation-worklet/spring-sticky/</small>
+        </section>
+        <section>
+          <p>Note: Today, the Animation API will only animate "fast" properties (like opacity and transform) and only items that can be composited</p>
+          <small class="source">http://houdini.glitch.me/animation</small>
+        </section>
+        <!-- 05. EXAMPLES -->
+        <section>
+          <h1 class="sparkles">✨Let's Make Magic✨</h1>
+        </section>
+				<section>
+					<h1 class="flash">This is experimental</h1>
+					<code>chrome://flags/#enable-experimental-web-platform-features</code>
+					<aside class="notes">In order to use Houdini</aside>
+        </section>
+        <section>
+          <h2>Caveats:</h2>
+          <ul>
+            <li>Must be https or localhost</li>
+            <li>(For current Houdini dev), must clear browser cache and refresh to see results</li>
+          </ul>
+        </section>
+        <section>
+          <p>Check in JavaScript:</p>
+          <code>if ('paintWorklet' in CSS) { ... }</code>
+          <br>
+          <p>Check in CSS:</p>
+          <code>@supports (background: paint(something)) { ... }</code>
+        </section>
+        <section>
+          <img src="img/caniuse-supports.jpg" alt="">
+        </section>
+        <section>
+          <a href="https://codepen.io/una/pen/1b1e2354937641dd53c492286d0c2ab0">1. Start with Canvas</a>
+          <aside class="notes">The paint API is kind of tricky to deal with, so let's start with Canvas -- there are a LOT of similarities here</aside>
+        </section>
+        <section>
+            <p data-height="600" data-theme-id="5255" data-slug-hash="4882cb7ca92122dc34f52419f1dd9c81" data-default-tab="js,result" data-user="una" data-pen-title="Sparkles -- Step 4" class="codepen">See the Pen <a href="https://codepen.io/una/pen/4882cb7ca92122dc34f52419f1dd9c81/">Sparkles -- Step 4</a> by Una Kravets (<a href="https://codepen.io/una">@una</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+            <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+        </section>
+        <section>
+          <p>Don't Freak Out</p>
+          <aside class="notes">
+            If this talk was overwhelming and you're thinking "oh no, now I have to write JavaScript to style things, I'm still trying to wrap my head around CSS" don't worry -- you can still write CSS. This is a layer on top of that for people writing libraries that you can then use and benefit from. This is the future, but we still have a long time until we get to that future.
+          </aside>
+        </section>
+        <section>
+          <p>This is a Really Exciting Time <br>to Be Building the Web</p>
+          <aside class="notes">Knowledge is power. This is really powerful, and it's a really exciting time to be building the web.</aside>
+        </section>
+        <section class="sparkles">
+          <h1>Thank You! 💖 @una</h1>
+					<ul style="font-size: 2rem">
+            <li>📝 github.com/w3c/css-houdini-drafts</li>
+            <li>🌈 css-houdini.rocks</li>
+						<li>👨🏻‍🏫 houdini.glitch.me</li>
+            <li>☁️ developers.google.com</li>
+            <li>👩🏽‍🔬 googlechromelabs.github.io/houdini-samples</li>
+            <li>📕 css-tricks.com/tag/houdini</li>
+            <li>🦉 twitter.com/Una/lists/houdini</li>
+          </ul>
+        </section>
+			</div>
+		</div>
 			</div>
 		</div>
 
@@ -84,9 +967,12 @@
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+						{ src: 'plugin/livecode/livecode.js', async: true }
 				]
-			});
+      });
+      CSS.paintWorklet.addModule('highlighter.js')
+      CSS.paintWorklet.addModule('sparkles.js');
 		</script>
 	</body>
 </html>

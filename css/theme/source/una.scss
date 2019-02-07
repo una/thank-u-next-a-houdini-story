@@ -38,6 +38,13 @@ $heading2Size: 1.4em;
 $heading3Size: 1.1em;
 $heading4Size: 1.0em;
 
+:root {
+  --violetLightest: #f5e8ff;
+  --violetLight: #e2bfff;
+  --violetMed: #9365ff;
+  --violetDark: #8100fa;
+}
+
 section.has-light-background {
 	&, h1, h2, h3, h4, h5, h6 {
 		color: #222;
@@ -48,6 +55,121 @@ section.has-light-background {
 // Theme template ------------------------------
 @import "../template/theme";
 // ---------------------------------------------
+.reveal .flash {
+  animation: flash 2s steps(2) infinite;
+}
+
+@keyframes flash {
+  from {opacity: 0.1}
+  to {opacity: 1}
+}
+
+.reveal small {
+ font-size: 1.2rem;
+ margin-top: 0.5rem;
+}
+
+.contact {
+ position: absolute;
+ bottom: 1rem;
+ left: 1rem;
+ 
+ a {
+   font-size: 2rem;
+   font-family: $mainFont;
+   color: var(--violetLight);
+   z-index: 10;
+   mix-blend-mode: difference;
+ }
+}
+
+.reveal section img,
+.reveal section video {
+ box-shadow: none;
+ border: none;
+ background: none;
+ margin: none;
+}
+
+.reveal code,
+.reveal code pre {
+ font-size: 2rem;
+ font-size: $mainFont;
+}
+
+.reveal code,
+.reveal .code-editor {
+ display: block;
+ white-space: pre;
+ text-align: left;
+ padding: 2rem;
+ border: 1px solid;
+ margin: 2rem;
+ font-size: 1.8rem;
+ background: rgba(0,0,0,0.1);
+ font-family: $mainFont;
+}
+
+.reveal .code-editor:hover,
+.reveal .code-editor:focus {
+ outline: 2px solid white;
+ background: rgba(0,0,0,0.5)
+}
+
+.reveal .rotating-radial {
+ background: conic-gradient(red, orange, gold, deeppink, blueviolet, red);
+}
+
+.reveal .source {
+ margin: 2rem auto 0;
+ display: block;
+}
+
+.reveal .itemList {
+ font-size: 2rem;
+ line-height: 1.5;
+ 
+ span {
+   background: var(--violetDark)
+ }
+}
+
+.reveal .primaryLink {
+ font-size: 2rem;
+ border-bottom: 1px solid;
+}
+
+.reveal .primaryLink:hover {
+ border-bottom: 1px solid;
+}
+
+.reveal .flex {
+ display: flex;
+}
+
+.reveal .half {
+ flex: 1;
+ flex-basis: 50%;
+}
+
+.reveal .smallerText {
+ font-size: 1.1rem;
+ white-space: pre-wrap;
+}
+
+.reveal .sparkles {
+ display: inline-block;
+ animation: sparkle 0.25s infinite linear;
+}
+
+@keyframes sparkle {
+ from {
+   background-image: paint(sparkles);
+ }
+ to {
+   background-image: paint(sparkles);
+ }
+}
 
 .reveal .shadow {
 	text-shadow: 5px 5px 0 rgba(255, 255, 255, 0.5);

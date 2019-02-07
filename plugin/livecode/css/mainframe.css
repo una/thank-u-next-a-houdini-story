@@ -1,0 +1,267 @@
+:root {
+	--violetLightest: #f5e8ff;
+	--violetLight: #e2bfff;	
+	--violetMed: #9365ff;
+	--violetDark: #8100fa;
+}
+
+html, body, .content {
+	height: 100%;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	font-size: 2em;
+	font-family: Helvetica Neue, Helvetica, Arial, Sans;
+}
+
+.content {
+	overflow: hidden;
+	position: relative;
+}
+
+/* General CSS properties */
+
+.toolbar, .editors, .preview, .console {
+	position: absolute;
+	background: white;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	border: solid 0 var(--violetLight);
+}
+
+.toolbar {
+	width: 100%;
+	height: 1.8rem;
+	background-color: var(--violetLight);
+	border-bottom-width: 1px;
+}
+
+.no-console .console,
+.no-preview .preview {
+	display: none;
+}
+
+.console {
+	overflow: scroll;
+}
+
+.console {
+	font-family: Consolas, Courrier New, Courrier, monospace;
+	padding: 5px;
+}
+
+.console-error {
+	color: red;
+}
+
+/*
+ * Positioning
+ */
+
+/* horizontal */
+
+.horizontal .editors {
+	top: 1.8rem;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-right-width: 1px;
+}
+
+.horizontal.has-preview .editors,
+.horizontal.has-console .editors {
+	right: 40%;
+}
+
+.horizontal .preview,
+.horizontal .console {
+	left: 100%;
+	right: 0;
+}
+
+.horizontal.has-preview .preview,
+.horizontal.has-console .console {
+	left: 60%;
+}
+
+.horizontal .preview {
+	top: 1.8rem;
+	bottom: 0;
+}
+
+.horizontal .console {
+	top: 1.8rem;
+	bottom: 0;
+}
+
+.horizontal.has-preview.has-console .preview {
+	bottom: 50%;
+}
+
+.horizontal.has-preview.has-console .console {
+	top: 50%;
+	border-top-width: 1px;
+}
+
+/* vertical */
+
+.vertical .editors {
+	top: 1.8rem;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-bottom-width: 1px;
+}
+
+.vertical.has-preview .editors,
+.vertical.has-console .editors {
+	bottom: 40%;
+}
+
+.vertical .preview,
+.vertical .console {
+	top: 100%;
+	bottom: 0;
+}
+
+.vertical.has-preview .preview,
+.vertical.has-console .console {
+	top: 60%;
+}
+
+.vertical .preview {
+	left: 0;
+	right: 0;
+}
+
+.vertical .console {
+	left: 0;
+	right: 0;
+	border-left-width: 1px;
+}
+
+.vertical.has-preview.has-console .preview {
+	right: 50%;
+}
+
+.vertical.has-preview.has-console .console {
+	left: 50%;
+}
+
+/* end positioning */
+
+.toolbar ul {
+	overflow: hidden;
+	font-size: 0.4em;
+	margin: 0;
+	padding: 0;
+}
+
+.toolbar ul li {
+	float: left;
+	display: block;
+}
+
+.toolbar ul li a, .run {
+	float: left;
+	display: block;
+	text-decoration: none;
+	background-color: var(--violetMed);
+	color: white;
+	line-height: 1.5;
+  padding: 0 10px;
+  font-size: 1.2rem;
+    border-right: 1px solid var(--violetLightest);;
+  font-weight: 300;
+  height: 2rem;
+}
+
+.toolbar ul li a:hover, .toolbar ul li a.selected, .run:hover {
+	background-color: var(--violetDark);
+}
+
+.run {
+	position: absolute;
+	cursor: pointer;
+	right: 0;
+	top: 0;
+	border: 0;
+  margin: 0;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+.run:after,
+.run:before {
+  content: ' ✨';
+}
+
+.run:focus {
+  outline: none;
+}
+
+.preview {
+	resize: both;
+	overflow: auto;
+}
+
+.preview iframe {
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.editor {
+	height: 100%;
+}
+
+.CodeMirror {
+	line-height: 1.2em;
+	height: 100%;
+}
+
+.CodeMirror-gutters {
+	border-right: 1px solid var(--violetLight);
+	background-color: var(--violetLightest);
+}
+
+.CodeMirror-linenumber {
+	color: var(--violetMed)
+}
+
+.cm-s-default .cm-tag {
+  color: #49ab39;
+}
+
+.cm-s-default .cm-string {
+  color: rgb(0, 140, 255);
+}
+
+.cm-s-default .cm-attribute {
+  color: rgb(240, 47, 47);
+}
+
+.cm-s-default .cm-qualifier {
+  color: #ae22ff;
+}
+
+.cm-s-default .cm-atom {
+  color: #2296ff;
+}
+
+.cm-s-default .cm-keyword {
+  color: #ff3ddb;
+}
+
+.cm-s-default .cm-comment {
+    color: #afafaf;
+}
+
+.cm-s-default .cm-number {
+    color: #19dc8e;
+}
