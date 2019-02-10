@@ -268,10 +268,29 @@ section.has-light-background {
 }
 
 .reveal .superUnderline {
+  --extra-underlineNumber: 10; /* default: 3 */
+  --extra-underlineColor: #8100fa; /* default: black */
+  --extra-underlineSpread: 40; /* default: 20 */
+  --extra-underlineWidth: 2; /* default: 2 */
+
+  background: paint(extra-superUnderline);
+}
+
+.reveal .song .superUnderline {
   --extra-underlineNumber: 3; /* default: 3 */
   --extra-underlineColor: white; /* default: black */
   --extra-underlineSpread: 5; /* default: 20 */
   --extra-underlineWidth: 0.5; /* default: 2 */
+}
 
-  background: paint(extra-superUnderline);
+.reveal .crossOut {
+  --extra-crossColor: #fc0; /* default: black */
+  --extra-crossWidth: 4; /* default: 1 */
+
+    background: paint(extra-crossOut);
+}
+
+.reveal .song .crossOut {
+  --extra-crossColor: #55d4c5; /* default: black */
+  --extra-crossWidth: 2; /* default: 1 */
 }

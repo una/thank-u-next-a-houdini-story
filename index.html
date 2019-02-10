@@ -571,18 +571,18 @@ registerPaint('conic-gradient', class {
             <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
         </section>
         <section>
-          <h1>Super Underline</h1>
+          <h1 class="superUnderline">Super Underline</h1>
         </section>
         <section>
-          <h1>Scalloped Border</h1>
+          <h1 class="scalloped">Scalloped Border</h1>
         </section>
         <section>
-          <h1>All Things Extra</h1>
+          <h1 class="crossOut">Cross That Out</h1>
         </section>
         <section class="song">
           <h2 class="shadow">Thank U, Next (CSS)</h2>
           <p>Thought I'd try out <span class="superUnderline">Bootstrap</span>,<br>
-            But it wasn't a match,<br>
+            But it wasn't a <span class="crossOut">match</span>,<br>
             Made a website with <span class="superUnderline">Stylus</span>,<br>
             Now i view source and laugh,<br>
             Even almost went native,<br>
@@ -592,10 +592,10 @@ registerPaint('conic-gradient', class {
 
             One taught me <span class="scalloped love">love</span>,<br>
             One taught me build patience,<br>
-            One taught me pain,<br>
+            One taught me <span class="crossOut">pain</span>,<br>
             Now my page looks <span class="superUnderline sparkles">amazing</span>,<br>
             I've learned and I've shipped,<br>
-            <span class="superUnderline"> But please don't look at it,</span><br>
+            <span class="superUnderline"> But please don't <span class="crossOut">look at it</span>,</span><br>
             If it's from 2012,<br>
             Since changing tech it a habit,<br>
             And to that I say...,<br><br>
@@ -651,6 +651,7 @@ registerPaint('conic-gradient', class {
       CSS.paintWorklet.addModule('sparkles.js');
       CSS.paintWorklet.addModule('scalloped.js');
       CSS.paintWorklet.addModule('superUnderline.js');
+      CSS.paintWorklet.addModule('crossout.js');
 
       // supposed to make them animate in but the transition isnt working
       [...document.querySelectorAll('.highlightEl')].forEach((item, i) => {
