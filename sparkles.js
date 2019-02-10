@@ -43,10 +43,3 @@ if (typeof registerPaint !== 'undefined') {
   
   registerPaint('sparkles', Sparkles);
 }
-
-CSS.registerProperty({
-  name: '--sparkleVal',
-  syntax: '<number>',
-  inherits: false,
-  initialValue: 0
-})
