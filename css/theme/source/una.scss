@@ -294,3 +294,10 @@ section.has-light-background {
   --extra-crossColor: #55d4c5; /* default: black */
   --extra-crossWidth: 2; /* default: 1 */
 }
+
+.audio {
+  position: absolute;
+    top: 25%;
+    left: 0;
+    transform: rotate(-90deg);
+}

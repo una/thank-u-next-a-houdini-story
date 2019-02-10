@@ -473,3 +473,9 @@ body {
   /* default: black */
   --extra-crossWidth: 2;
   /* default: 1 */ }
+
+.audio {
+  position: absolute;
+  top: 25%;
+  left: 0;
+  transform: rotate(-90deg); }
