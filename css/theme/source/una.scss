@@ -33,7 +33,7 @@ $linkColor: #7d01e9;
 $linkColorHover: lighten( $linkColor, 15% );
 $selectionBackgroundColor: lighten( $linkColor, 25% );
 
-$heading1Size: 2.25em;
+$heading1Size: 2.1em;
 $heading2Size: 1.4em;
 $heading3Size: 1.1em;
 $heading4Size: 1.0em;
@@ -105,8 +105,8 @@ section.has-light-background {
  padding: 2rem;
  border: 1px solid;
  margin: 2rem;
- font-size: 1.8rem;
- background: rgba(0,0,0,0.1);
+ font-size: 1.6rem;
+ background: rgba(255,255,255,.1);
  font-family: $mainFont;
 }
 
@@ -251,7 +251,7 @@ section.has-light-background {
 }
 
 .song .scalloped {
-  --extra-scallopRadius: 15;
+  --extra-scallopRadius: 14;
   --extra-scallopColor: #5858ff;
   --extra-scallopWeight: 2;
   padding: 2rem;

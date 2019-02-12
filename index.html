@@ -28,7 +28,6 @@
 					<h1 class="highlightEl"><span>A Houdini Story</span></h1>
 					<h2 class="highlightEl name">Una Kravets | @una</h2>
 				</section>
-				<section>About Me Slide</section>
 				<section>
 					<h2>She taught me...</h2>
 					<ul>
@@ -40,9 +39,27 @@
 					</ul>
 				</section>
         <section>
-            <h1 class="scalloped">Houdini is a low-level API for CSS</h1>
-            <aside class="notes">Houdini is a mix of worklets (lighter versions of service workers) and custom property declarations</aside>
-          </section>
+          <h1 class="scalloped">Houdini is a low-level API for CSS</h1>
+          <aside class="notes">Houdini is a mix of worklets (lighter versions of service workers) and custom property declarations</aside>
+        </section>
+
+        <section data-background="white">
+            <h3 style="margin-bottom: -4rem; z-index: 3; position: relative;">User-Extensible CSS</h3>
+            <img src="img/24-houdini.png" alt="">
+            <aside class="notes">For the first time ever, users have access to the CSSOM</aside>
+          <aside class="notes">And that's exciting! Houdini lets developers get ahead of and around the browser vendors, so we don't have to wait for implementation -- it's like a polyfill without needing to be a polyfill, and cross-browser compatible</aside>
+        </section>
+        <section>
+          <img style="height: 80vh;" src="img/csshoudini.gif" alt="">
+          <h3 class="fragment" style="position: absolute; z-index: 2; top: 10px; left: -20px;    background: rgba(255,255,255,0.5);
+          border-radius: 5em;
+          padding: 1rem;">Big Dog = Browsers</h3>
+          <h3 class="fragment" style="position: absolute; z-index: 2;  bottom: 100px;
+          right: 10px; background: rgba(255,255,255,0.5);
+          border-radius: 5em;
+          padding: 1rem;">Pupper = Houdini</h3>
+          <aside class="notes">the big dog is browsers chugging along on the CSS spec, the little pupper is houdini. this brings us real creative control and endless possibilities!</aside>
+        </section>
 				<section>
           <a class="primaryLink">ishoudinireadyyet.com</a><br><br>
 					<iframe class="fullframe" src="https://ishoudinireadyyet.com" overflow="scroll"></iframe>
@@ -51,36 +68,8 @@
 					<h1>Properties & Values</h1>
 					<h1 class="fragment">Paint API</h1>
 				</section>
-				
-        <section data-background="white">
-          <img src="img/07-service-workers.jpg" alt="">
-          <aside class="notes">Who here has heard of Service Workers?</aside>
-        </section>
-        <section data-background="#F1F2F7">
-          <img src="img/pwa-part-3-service-worker.svg" alt="">
-          <small class="source">vea.re/blog/making-your-website-fast-and-offline-available-with-a-service-worker</small>
-          <aside class="notes">
-            Service workers run in a separate process outside of your browser JS, before you even hit the page. They can be used for serving content offline, sending push notifications when you're not on the site, and a lot more because of how they're downloaded and stored for future use.
-          </aside>
-        </section>
-        <section data-background="white">
-            <img src="img/24-houdini.png" alt="">
-            <aside class="notes">For the first time ever, users have access to the CSSOM</aside>
-          </section>
         <section>
-          <h1>The Houdini Project is About User-Extensible CSS</h1>
-          <aside class="notes">And that's exciting! Houdini lets developers get ahead of and around the browser vendors, so we don't have to wait for implementation -- it's like a polyfill without needing to be a polyfill, and cross-browser compatible</aside>
-        </section>
-        <section>
-          <img style="height: 80vh;" src="img/csshoudini.gif" alt="">
-          <aside class="notes">the big dog is browsers chugging along on the CSS spec, the little pupper is houdini. this brings us real creative control and endless possibilities!</aside>
-        </section>
-				<section>
-          <h1>JS in CSS?!</h1>
-				</section>
-
-        <section>
-          <h1>Properties & Values</h1>
+          <h1>Properties & Values API</h1>
           <a class="primaryLink" href="http://drafts.css-houdini.org/css-properties-values-api/">drafts.css-houdini.org/css-properties-values-api/</a>
         </section>
         <section>
@@ -206,6 +195,17 @@ CSS.registerProperty({
           <aside class="notes"> Properties like background-image or border-image are usually used with url() to load an image file or with CSS built-in functions like linear-gradient(). Instead of using those, you can now use paint(myPainter) to reference a paint worklet -- you can create your own CSS functions and images!
           </aside>
         </section>
+      <section data-background="white">
+          <img src="img/07-service-workers.jpg" alt="">
+          <aside class="notes">Who here has heard of Service Workers?</aside>
+        </section>
+        <section data-background="#F1F2F7">
+          <img src="img/pwa-part-3-service-worker.svg" alt="">
+          <small class="source">vea.re/blog/making-your-website-fast-and-offline-available-with-a-service-worker</small>
+          <aside class="notes">
+            Service workers run in a separate process outside of your browser JS, before you even hit the page. They can be used for serving content offline, sending push notifications when you're not on the site, and a lot more because of how they're downloaded and stored for future use.
+          </aside>
+        </section>
 <!-- Example Start -->
 <section>
     <div class="livecode stretch no-console">
@@ -310,6 +310,9 @@ aside .placeholder {
   <section data-background="white">
     <img src="img/houdinidiagram2.png" alt="">
   </section>
+  <section>
+      <h1>JS in CSS?!</h1>
+    </section>
     <!-- Example Start -->
   <section>
     <div class="livecode stretch no-console">
@@ -556,9 +559,6 @@ registerPaint('conic-gradient', class {
           <code>@supports (background: paint(something)) { ... }</code>
         </section>
         <section>
-          <img src="img/caniuse-supports.jpg" alt="">
-        </section>
-        <section>
           <a href="https://codepen.io/una/pen/1b1e2354937641dd53c492286d0c2ab0">1. Start with Canvas</a>
           <aside class="notes">The paint API is kind of tricky to deal with, so let's start with Canvas -- there are a LOT of similarities here</aside>
         </section>
@@ -567,13 +567,474 @@ registerPaint('conic-gradient', class {
             <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
         </section>
         <section>
+          <h1>Extra.CSS</h1>
+        </section>
+        <section>
           <h1 class="superUnderline">Super Underline</h1>
         </section>
+          <!-- Example Start -->
+  <section>
+      <div class="livecode stretch no-console">
+        <pre><code class="html" title="index.html">
+  <h1>Hello World</h1>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit <a>asperiores</a> cupiditate dolor quo iste animi, eveniet in inventore <a>obcaecati</a> quisquam architecto pariatur et perspiciatis, deleniti voluptatum consequuntur <a>voluptas</a> voluptatibus repellat!</p>
+  <script>
+    if ('paintWorklet' in CSS) {
+      CSS.paintWorklet.addModule('superUnderline.js');
+    }
+  </script>
+  <script src='properties.js'></script>
+    </code></pre>
+    <pre><code class="javascript" title="properties.js">
+  CSS.registerProperty({
+    name: '--extra-underlineNumber',
+    syntax: '<number>',
+    inherits: false,
+    initialValue: 3
+  });
+  
+  CSS.registerProperty({
+    name: '--extra-underlineColor',
+    syntax: '<color>',
+    inherits: true,
+    initialValue: 'black'
+  });
+  
+  CSS.registerProperty({
+    name: '--extra-underlineSpread',
+    syntax: '<number>',
+    inherits: false,
+    initialValue: 20
+  });
+  
+  CSS.registerProperty({
+    name: '--extra-underlineWidth',
+    syntax: '<number>',
+    inherits: false,
+    initialValue: 2
+  });
+    </code></pre>
+        <pre><code class="javascript" title="superUnderline.js">
+  const getRandom = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+  
+  if (typeof registerPaint !== 'undefined') {
+    class SuperUnderline {
+      static get inputProperties() {
+        return ['--extra-underlineNumber', '--extra-underlineColor', '--extra-underlineSpread', '--extra-underlineWidth']
+      }
+    
+      paint(ctx, size, properties) {
+        const numUnderlines = properties.get('--extra-underlineNumber')
+        const lineWidth = properties.get('--extra-underlineWidth')
+        const color = properties.get('--extra-underlineColor')
+        const spread = properties.get('--extra-underlineSpread')
+  
+        ctx.lineWidth = lineWidth
+        ctx.strokeStyle = color
+  
+        for (let i = 0; i < numUnderlines; i++) {
+          ctx.beginPath()
+          ctx.moveTo(0, getRandom(0, spread) + size.height/1.4)
+          ctx.lineTo(size.width, getRandom(0, spread) + size.height/1.4)
+          ctx.stroke()
+        }
+      }
+    }
+    
+    registerPaint('extra-superUnderline', SuperUnderline)
+  }
+    </code></pre>
+        <pre><code class="css" title="style.css">
+  body {
+    font-family: monospace;
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+  }
+  
+  p {
+    max-width: 660px;
+    margin: 0 auto;
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+  
+  h1 {
+    font-size: 4rem;
+    display: inline-block;
+    font-weight: 100;
+    margin: 1rem auto;
+  }
+  
+  @supports (background: paint(something)) {
+    h1 {
+      /* 
+        Optionally set property values. 
+        This can be done at root or local scope 
+      */
+      --extra-underlineNumber: 5; /* default: 3 */
+      --extra-underlineColor: #8266ff; /* default: black */
+      --extra-underlineSpread: 15; /* default: 20 */
+      --extra-underlineWidth: 1; /* default: 2 */
+  
+      background: paint(extra-superUnderline);
+      line-height: 1.5;
+    }
+  
+    a {
+      --extra-underlineColor: #00eeff; /* default: black */
+      --extra-underlineSpread: 10; /* default: 20 */
+  
+      background: paint(extra-superUnderline);
+    }
+  }
+    </code></pre>
+      </div>
+    </section>
+    <!-- Example End -->
         <section>
           <h1 class="scalloped">Scalloped Border</h1>
         </section>
+  <!-- Example Start -->
+  <section>
+      <div class="livecode stretch no-console">
+        <pre><code class="html" title="index.html">
+  <h1>Hello World</h1>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit <i>asperiores</i> cupiditate dolor quo iste animi, eveniet in inventore <i>obcaecati</i> quisquam architecto pariatur et perspiciatis, deleniti voluptatum consequuntur <i>voluptas</i> voluptatibus repellat!</p>
+  <script>
+    if ('paintWorklet' in CSS) {
+      CSS.paintWorklet.addModule('scalloped.js');
+    }
+  </script>
+  <script src='properties.js'></script>
+    </code></pre>
+    <pre><code class="javascript" title="properties.js">
+  CSS.registerProperty({
+    name: '--extra-scallopRadius',
+    syntax: '<number>',
+    inherits: false,
+    initialValue: 10
+  });
+  
+  CSS.registerProperty({
+    name: '--extra-scallopColor',
+    syntax: '<color>',
+    inherits: true,
+    initialValue: 'black'
+  });
+  
+  CSS.registerProperty({
+    name: '--extra-scallopWeight',
+    syntax: '<number>',
+    inherits: false,
+    initialValue: 2
+  });
+</code></pre>
+        <pre><code class="javascript" title="scalloped.js">
+  if (typeof registerPaint !== 'undefined') {
+    class ScallopedBorder {
+      static get inputProperties() {
+        return ['--extra-scallopRadius', '--extra-scallopWeight', '--extra-scallopColor']
+      }
+    
+      paint(ctx, size, properties) {
+        const radius = properties.get('--extra-scallopRadius').value
+        const scallopWeight = properties.get('--extra-scallopWeight')
+        const color = properties.get('--extra-scallopColor')
+        const height = size.height
+        const width = size.width
+  
+        ctx.lineWidth = scallopWeight
+        ctx.strokeStyle = color
+        
+        const getSteps = (sizeVal) => {
+          return Math.floor(sizeVal / (radius * 2) - 2)
+        }
+  
+        const getOwnRadius = (sizeVal, otherRad) => {
+          const steps = getSteps(sizeVal) + 1
+          const totalSpace = sizeVal - (radius * 2)
+          const spaceTaken = steps * (radius * 2)
+          let pixelsRemaining = totalSpace - spaceTaken
+  
+          if (otherRad) {
+            const radDif = otherRad - radius
+            pixelsRemaining = totalSpace - spaceTaken - radDif
+          }
+  
+          const newRadius = radius + ((pixelsRemaining / 2) / (steps + 1))
+          return (newRadius)
+        }
+  
+        const horizRadius = getOwnRadius(width, getOwnRadius(height))
+        const vertRadius = getOwnRadius(height, getOwnRadius(width))
+  
+        // top
+        for (let i = 0; i <= getSteps(width); i++) {
+          ctx.beginPath()
+          ctx.arc(horizRadius + horizRadius + (horizRadius * i * 2), horizRadius + (scallopWeight * 1) , horizRadius, 0, Math.PI, true)
+          ctx.stroke()
+        }
+  
+        // bottom
+        for (let i = 0; i <= getSteps(width); i++) {
+          ctx.beginPath()
+          ctx.arc(horizRadius + horizRadius + (horizRadius * i * 2), height - horizRadius - (scallopWeight * 1), horizRadius, 0, Math.PI, false)
+          ctx.stroke()
+        }
+  
+        // left
+        for (let i = 0; i <= getSteps(height); i++) {
+          ctx.beginPath()
+          ctx.arc(vertRadius + (scallopWeight * 1), vertRadius + vertRadius + (vertRadius * i * 2), vertRadius, Math.PI * 0.5,  Math.PI * 1.5, false);
+          ctx.stroke()
+        }
+  
+        // right
+        for (let i = 0; i <= getSteps(height); i++) {
+          ctx.beginPath()
+          ctx.arc(width - vertRadius - (scallopWeight * 1), vertRadius + vertRadius + (vertRadius * i * 2), vertRadius, Math.PI * 0.5,  Math.PI * 1.5, true);
+          ctx.stroke()
+        }
+      }
+    }
+  
+    registerPaint('extra-scallopedBorder', ScallopedBorder)
+  }
+    </code></pre>
+        <pre><code class="css" title="style.css">
+  body {
+    font-family: monospace;
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+  }
+  
+  p {
+    max-width: 660px;
+    margin: 0 auto;
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 2;
+    text-align: left;
+  }
+  
+  h1 {
+    font-size: 4rem;
+    display: inline-block;
+    font-weight: 100;
+    margin: 1rem auto;
+    padding: 1rem 2rem;
+  }
+  
+  @supports (background: paint(something)) {
+    h1 {
+      /* 
+        Optionally set property values. 
+        This can be done at root or local scope 
+      */
+      --extra-scallopRadius: 15; /* default: 10 */
+      --extra-scallopColor: #8266ff; /* default: black */
+      --extra-scallopWeight: 3; /* default: 2 */
+  
+      background: paint(extra-scallopedBorder);
+      line-height: 1.5;
+    }
+  
+    i {
+      --extra-scallopRadius: 5; /* default: 10 */
+      --extra-scallopColor: #00eeff; /* default: black */
+      --extra-scallopWeight: 1; /* default: 2 */
+  
+      /* Must add padding to show border properly*/
+      padding: 0.75rem;
+  
+      background: paint(extra-scallopedBorder);
+    }
+  }
+    </code></pre>
+      </div>
+    </section>
+    <!-- Example End -->
         <section>
           <h1 class="crossOut">Cross That Out</h1>
+        </section>
+        <section>
+            <!-- Example Start -->
+  <section>
+      <div class="livecode stretch no-console">
+        <pre><code class="html" title="index.html">
+  <h1>Hello<br/> World</h1>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit <a>asperiores</a> cupiditate dolor quo iste animi, eveniet in inventore <a>obcaecati</a> quisquam architecto pariatur et perspiciatis, deleniti voluptatum consequuntur <a>voluptas</a> voluptatibus repellat!</p><br/>
+  <p>Scroll for more!</p>
+  <h2>Getting Crazy 😝 Resize to Watch Me Scale.</h2>
+  <script>
+    if ('paintWorklet' in CSS) {
+      CSS.paintWorklet.addModule('crossout.js');
+    }
+  </script>
+  <script src='properties.js'></script>
+    </code></pre>
+    <pre><code class="javascript" title="properties.js">
+    CSS.registerProperty({
+      name: '--extra-crossColor',
+      syntax: '<color>',
+      inherits: true,
+      initialValue: 'black'
+    });
+    
+    CSS.registerProperty({
+      name: '--extra-crossSpread',
+      syntax: '<number>',
+      inherits: false,
+      initialValue: 100
+    });
+    
+    CSS.registerProperty({
+      name: '--extra-crossWidth',
+      syntax: '<number>',
+      inherits: false,
+      initialValue: 1
+    });
+    </code></pre>
+        <pre><code class="javascript" title="crossout.js">
+  const getRandom = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+  
+  if (typeof registerPaint !== 'undefined') {
+    class CrossOut {
+      static get inputProperties() {
+        return ['--extra-crossNumber', '--extra-crossColor', '--extra-crossSpread', '--extra-crossWidth']
+      }
+    
+      paint(ctx, size, properties) {
+        const lineWidth = properties.get('--extra-crossWidth')
+        const color = properties.get('--extra-crossColor')
+        const spread = properties.get('--extra-crossSpread')
+        const spreadPercent = spread / 100
+        const verticalStart = (size.height - (size.height * spreadPercent)) * 1.5
+  
+        ctx.lineWidth = lineWidth
+        ctx.strokeStyle = color
+  
+        ctx.beginPath()
+        ctx.moveTo(lineWidth, verticalStart + lineWidth)
+        ctx.lineTo(size.width - lineWidth, size.height * spreadPercent - lineWidth)
+        ctx.moveTo(size.width - lineWidth, verticalStart + lineWidth)
+        ctx.lineTo(lineWidth, size.height * spreadPercent - lineWidth)
+        ctx.stroke()
+      }
+    }
+    
+    registerPaint('extra-crossOut', CrossOut)
+  }
+    </code></pre>
+        <pre><code class="css" title="style.css">
+  body {
+    font-family: monospace;
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+  
+  p {
+    max-width: 660px;
+    margin: 0 auto;
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+  
+  h1 {
+    font-size: 4rem;
+    display: inline-block;
+    font-weight: 100;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 760px;
+    position: relative;
+  }
+  
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 100;
+    display: inline-block;
+    position: relative;
+  }
+  
+  @supports (background: paint(something)) {
+    h1 {
+      /* 
+        Optionally set property values. 
+        This can be done at root or local scope 
+      */
+      --extra-crossColor: #fc0; /* default: black */
+      --extra-crossWidth: 2; /* default: 1 */
+  
+      background: paint(extra-crossOut);
+      line-height: 1.5;
+    }
+  
+    h2 {
+      margin: 10rem auto;
+      display: block;
+      width: 80vw;
+      max-width: 900px;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    h2:before {
+      --extra-crossColor: #fa4; /* default: black */
+      --extra-crossWidth: 30; /* default: 1 */
+      content: '';
+      width: 100%;
+      height: 100%;
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: -1;
+      background: paint(extra-crossOut);
+      transform: rotate(20deg);
+      mix-blend-mode: lighten;
+    }
+    h2:after {
+      --extra-crossColor: #b4f; /* default: black */
+      --extra-crossWidth: 50; /* default: 1 */
+      content: '';
+      width: 100%;
+      height: 100%;
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: -2;
+      background: paint(extra-crossOut);
+      transform: rotate(-20deg)
+    }
+  
+    a {
+      --extra-crossColor: #d4f;/* default: black */
+      --extra-crossSpread: 50; /* default: 100, which is 100% of the height of the element */
+  
+      background: paint(extra-crossOut);
+    }
+  }
+    </code></pre>
+      </div>
+    </section>
+    <!-- Example End -->
         </section>
         <section class="song">
           <h2 class="shadow">Thank U, Next (CSS)</h2>
@@ -603,7 +1064,7 @@ registerPaint('conic-gradient', class {
               I'm so freaking thankful for CSS...
             </div>
 
-            <audio class="audio" src="img/endingaudio.mp3" controls></audio>
+            <!-- <audio class="audio" src="img/endingaudio.mp3" controls></audio> -->
           
           </p>
         </section>
@@ -648,6 +1109,17 @@ registerPaint('conic-gradient', class {
       CSS.paintWorklet.addModule('scalloped.js');
       CSS.paintWorklet.addModule('superUnderline.js');
       CSS.paintWorklet.addModule('crossout.js');
+
+      // Play music when I type "play"
+      let char = 0;
+      const playCode = [80,76,65,89];
+      document.addEventListener('keydown', (e) => {
+        char = (e.keyCode == playCode[char]) ? char + 1 : 0;
+        if (char == playCode.length) {
+          var audio = new Audio('./img/endingaudio.mp3');
+          audio.play();
+        };
+      });
 
       // supposed to make them animate in but the transition isnt working
       [...document.querySelectorAll('.highlightEl')].forEach((item, i) => {

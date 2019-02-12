@@ -62,7 +62,7 @@ body {
   word-wrap: break-word; }
 
 .reveal h1 {
-  font-size: 2.25em; }
+  font-size: 2.1em; }
 
 .reveal h2 {
   font-size: 1.4em; }
@@ -323,8 +323,8 @@ body {
   padding: 2rem;
   border: 1px solid;
   margin: 2rem;
-  font-size: 1.8rem;
-  background: rgba(0, 0, 0, 0.1);
+  font-size: 1.6rem;
+  background: rgba(255, 255, 255, 0.1);
   font-family: "Racing Sans One", Helvetica, sans-serif; }
 
 .reveal .code-editor:hover,
@@ -427,7 +427,7 @@ body {
   color: #3f2a35; }
 
 .song .scalloped {
-  --extra-scallopRadius: 15;
+  --extra-scallopRadius: 14;
   --extra-scallopColor: #5858ff;
   --extra-scallopWeight: 2;
   padding: 2rem;
