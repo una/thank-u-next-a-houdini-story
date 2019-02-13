@@ -67,3 +67,10 @@ CSS.registerProperty({
   inherits: false,
   initialValue: 1
 });
+
+CSS.registerProperty({
+  name: '--highlighter-progress',
+  syntax: '<number>',
+  inherits: false,
+  initialValue: 0
+});

@@ -25,7 +25,7 @@
 		<div class="reveal">
 			<div class="slides">
 				<section data-background="./img/thankunextcover.jpg">
-					<h1 class="highlightEl"><span>A Houdini Story</span></h1>
+					<h1 class="highlightEl one"><span>A Houdini Story</span></h1>
 					<h2 class="highlightEl name">Una Kravets | @una</h2>
 				</section>
 				<section>
@@ -70,6 +70,7 @@
 				</section>
         <section>
           <h1>Properties & Values API</h1>
+          <h3>Working Draft</h3>
           <a class="primaryLink" href="http://drafts.css-houdini.org/css-properties-values-api/">drafts.css-houdini.org/css-properties-values-api/</a>
         </section>
         <section>
@@ -90,7 +91,6 @@
               inherits: false
             });
           </code>
-          <small><a href="https://drafts.css-houdini.org/css-properties-values-api/">drafts.css-houdini.org/css-properties-values-api/</a></small>
           <aside class="notes">With a registered property, you are telling the browser what to expect, so you can get errors for having invalid syntax. You can also transition the poperty based on its syntax. Color, for example, works as a transition. Let's take a look at that previous example again.</aside>
         </section>
         <!-- Example Start -->
@@ -145,7 +145,7 @@ CSS.registerProperty({
             <li><span>"&lt;transform-function&gt;"</span>: Any valid &lt;transform-function> value</li>
             <li><span>"&lt;custom-ident&gt;"</span>:Any valid &lt;custom-ident> value</li>
           </ul>
-          <small class="source">https://drafts.css-houdini.org/css-properties-values-api/ | 22 September 2018</small>
+          <small class="source">https://drafts.css-houdini.org/css-properties-values-api/ | 13 February 2019</small>
         </section>
         <!-- Example Start -->
         <section>
@@ -192,6 +192,8 @@ CSS.registerProperty({
         <!-- Example End -->
       <section>
           <h1>Paint Worklet</h1>
+          <h3>Candidate Recommendation</h3>
+          <a href="https://drafts.css-houdini.org/css-paint-api/">https://drafts.css-houdini.org/css-paint-api/</a>
           <aside class="notes"> Properties like background-image or border-image are usually used with url() to load an image file or with CSS built-in functions like linear-gradient(). Instead of using those, you can now use paint(myPainter) to reference a paint worklet -- you can create your own CSS functions and images!
           </aside>
         </section>
@@ -548,7 +550,7 @@ registerPaint('conic-gradient', class {
           <h2>Caveats:</h2>
           <ul>
             <li>Must be https or localhost</li>
-            <li>(For current Houdini dev), must clear browser cache and refresh to see results</li>
+            <li class="fragment">*If you have issues with refresh, disable browser cache</li>
           </ul>
         </section>
         <section>
@@ -568,6 +570,7 @@ registerPaint('conic-gradient', class {
         </section>
         <section>
           <h1>Extra.CSS</h1>
+          <h2 class="fragment">A CSS Houdini Library to Make Your Sites A Little More #extra</h2>
         </section>
         <section>
           <h1 class="superUnderline">Super Underline</h1>
@@ -1122,9 +1125,9 @@ registerPaint('conic-gradient', class {
       });
 
       // supposed to make them animate in but the transition isnt working
-      [...document.querySelectorAll('.highlightEl')].forEach((item, i) => {
-        return setTimeout(() => {item.style.setProperty('--highlighter-progress', 1)}, i * 500 + 250)
-      })
+      // [...document.querySelectorAll('.highlightEl')].forEach((item, i) => {
+      //   return setTimeout(() => {item.style.setProperty('--highlighter-progress', 1)}, i * 500 + 250)
+      // })
     </script>
     <script src='properties.js'></script>
 	</body>

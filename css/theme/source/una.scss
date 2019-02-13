@@ -134,15 +134,6 @@ section.has-light-background {
  }
 }
 
-.reveal .primaryLink {
- font-size: 2rem;
- border-bottom: 1px solid;
-}
-
-.reveal .primaryLink:hover {
- border-bottom: 1px solid;
-}
-
 .reveal .flex {
  display: flex;
 }
@@ -183,7 +174,7 @@ section.has-light-background {
 
 .reveal .highlightEl {
   --highlighter-pen: url('../../../img/highlighter.png');
-  --highlighter-color: yellow;
+  --highlighter-color: white;
   --highlighter-path: path("M0,46L50,50"), path("M0,52L50,44");
   --highlighter-size: 120;
   --highlighter-opacity: 1;
@@ -198,6 +189,14 @@ section.has-light-background {
   background: paint(highlighter);
   border-image-source: var(--highlighter-pen);
   transition: --highlighter-progress 1s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.reveal .highlightEl.one {
+  --highlighter-progress: 1;
+}
+
+.reveal .highlightEl.name:hover {
+  --highlighter-progress: 1;
 }
 
 .reveal .highlightEl.name {
