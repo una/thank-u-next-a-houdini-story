@@ -29,18 +29,228 @@
 					<h2 class="highlightEl name">Una Kravets | @una</h2>
         </section>
         <section>
-          ABOUT ME!
+          <p><img style="height: 4rem; width: auto; margin: 0 0 1rem; vertical-align: middle;" src="img/logos/twitterlogo.png" alt=""> @una</p>
+          <img src="img/logos/me2.png" alt="">
         </section>
 				<section>
 					<h2>She taught me...</h2>
 					<ul>
+            <li>CSS Today (Wins & Limitations)</li>
 						<li class="fragment">What is Houdini</li>
 						<li class="fragment">Houdini APIs</li>
 						<li class="fragment">How to Use Houdini Today</li>
 						<li class="fragment sparkles">✨Live Demo✨</li>
 						<li class="fragment">Something Extra(.CSS)</li>
 					</ul>
-				</section>
+        </section>
+        <!-- 01. INTRO ABOUT CSS -->
+				<section>
+            <h2>Writing CSS 15 Years Ago</h2>
+            <img src="img/pupmeme.jpg" alt="">
+            <aside class="notes">CSS is such an exciting field to be in right now. So much is changing! It's really getting a lot more mature</aside>
+          </section>
+          <section>
+            <img src="img/maxresdefault.jpg" alt="">
+            <aside class="notes">No longer need to hack around things</aside>
+          </section>
+  <!-- Example Start -->
+  <section>
+    <p>CSS Grid 🏗</p>
+    <div class="livecode stretch no-console">
+      <pre><code class="html" title="index.html">
+  <div class="grid-area">
+    <div class="header">
+      Hello World
+    </div>
+    <div class="sidebar">↕️</div>
+    <div class="gallery">
+      🖼 🖼 🖼 🖼 🖼 🖼 🖼 🖼
+    </div>
+    <div class="tomato">
+      Other Content Here
+    </div>
+    <div class="footer">Footer</div>
+  </div>
+  </code></pre>
+      <pre><code class="css" title="style.css">
+  .grid-area {
+    display: grid;
+    grid-template:
+      "😄 😄 😄 😄" 4rem
+      "↕️ 🖼 🖼 🖼" 400px
+      "↕️ 🍅 🍅 🍅" auto
+      "👟 👟 👟 👟" 100px /
+      10% 30% 30% 30%
+  }
+  
+  .header {
+    grid-area: 😄;
+    background-color: hotpink;
+  }
+  
+  .sidebar {
+    grid-area: ↕️;
+    background-color: skyblue;
+  }
+  
+  .gallery {
+    grid-area: 🖼;
+    background-color: yellow;
+  }
+  
+  .tomato {
+    grid-area: 🍅;
+    background: tomato;
+  }
+  
+  .footer {
+    grid-area: 👟;
+    background-color: dimgray;
+  }
+  
+  /* Unrelated */
+  
+  body {
+    font-family: monospace;
+    font-size: 32px;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .grid-area div {
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .gallery {
+    font-size: 80px;
+  }
+  
+  </code></pre>
+    </div>
+  </section>
+  <!-- Example End -->
+          <section>
+            <!-- Example Start -->
+  <section>
+    <p>CSS Custom Properties 🎨</p>
+    <div class="livecode stretch">
+      <pre><code class="html" title="index.html">
+  <h1>Hello, Confront!</h1>
+  </code></pre>
+  <pre><code class="css" title="style.css">
+  :root {
+    --primaryColor: hotpink;
+    --background: wheat;
+  }
+  
+  body {
+    background-color: var(--background);
+  }
+  
+  h1 {
+    color: var(--primaryColor);
+  }
+  </code></pre>
+  <pre><code class="javascript" title="script.js">
+  const changeBg = (color) => { 
+    document.documentElement.style.setProperty('--background', color)
+  }
+  
+  //onmousemove = (e) => { 
+  //  console.log("mouse location:", e.clientX, e.clientY)
+  //  changeBg(`rgb(${e.clientX}, 50, 50)`)
+  //}
+  
+  
+  
+  //onmousemove = (e) => { 
+  //  let valX = (e.clientX / document.body.clientWidth) * 255
+  //  let valY = (e.clientY / document.body.clientHeight) * 255
+  //  console.log(valX, valY)
+  //  changeBg(`rgb(${valX}, ${valY}, 50)`)
+  //}
+  
+  </code></pre>
+    </div>
+  </section>
+  <!-- Example End -->
+          </section>
+          <section>
+            <img style="height: 80vh" src="img/dogfall.gif" alt="">
+            <aside class="notes">(transition) But don't get too excited -- there are still alot of things we cant do</aside>
+          </section>
+  
+          <!-- 02. THINGS WE CAN'T DO -->
+          <section>
+            <p>Form Styling</p>
+            <img src="img/form-checkbox.png" alt="">
+          </section>
+          <section>
+            <p>Form Styling <span class="fragment">🚫</span></p>
+            <video controls autoplay src='img/video/customdropdown.mp4'></video>
+          </section>
+          <section class="gradient">
+            <p>CSS Gradients <span class="fragment">✅</span></p>
+            <style class="code-editor" contenteditable>.gradient {
+    background: 
+      radial-gradient(circle at 50% 0, aqua -40%, transparent),
+      linear-gradient(140deg, navy -20%, transparent 60%),
+      linear-gradient(-150deg, magenta -30%, transparent 60%),
+      radial-gradient(circle at 50% 120%, yellow, transparent),
+      linear-gradient(to right, navy, red), white;
+  }</style>
+          </section>
+          <section class="radial-gradient">
+            <p>Conic Gradients <span class="fragment">🚫</span></p>
+  <style class="code-editor" contenteditable>.radial-gradient {
+    background: 
+      conic-gradient(darkorange, gold, deeppink, 
+                     blueviolet, turquoise);
+  }
+  </style>
+  <aside class="notes" data-markdown>
+    - updat the last value to 'darkorange' to make it work as a circle
+    - Browser support is literally only in Chrome 69+ (the latest version), nowhere else</aside>
+          </section>
+          <section>
+            <p>Animated Gradients <span class="fragment">🚫</span></p>
+            <div class="gradient-hoverEx"></div>
+            <style class="code-editor" contenteditable>.gradient-hoverEx {
+    width: 100%;
+    height: 150px;
+    display: block;
+    transition-duration: 1s;
+    background: linear-gradient(to right, red, deeppink);
+  }
+  
+  .gradient-hoverEx:hover {
+    background: linear-gradient(to right, blue, deeppink);
+  }</style>
+  <aside class="notes">show that colors work fine</aside>
+          </section>
+          <section>
+            <p>Custom Borders <span class="fragment">🤷🏻‍♀️</span></p>
+            <img src="img/borderex.gif" alt="">
+            <small class="source">developer.mozilla.org/docs/Web/CSS/border</small>
+          </section>
+          <section>
+            <p>Non-Standard Borders <span class="fragment">🚫</span></p>
+            <img src="img/moreborders.jpg" alt="">
+            <small class="source">developer.mozilla.org/docs/Web/CSS/border</small>
+          </section>
+          <section>
+            <h1>Houdini!!</h1>
+            <aside class="notes">(transition) But with Houdini, we can make these things not only possible, but do it before browser vendors implement them, and make them available cross-browser
+              </aside>
+          </section>
+          <section>
+            <h1>Houdini!?</h1>
+            <aside class="notes">(transition) So what is Houdini anyway?</aside>
+          </section>
+  
+          <!-- 03. INTRO TO HOUDINI -->
         <section>
           <h1 class="scalloped">Houdini is a low-level API for CSS</h1>
           <aside class="notes">Houdini is a mix of worklets (lighter versions of service workers) and custom property declarations</aside>
@@ -66,10 +276,6 @@
 				<section>
           <a class="primaryLink">ishoudinireadyyet.com</a><br><br>
 					<iframe class="fullframe" src="https://ishoudinireadyyet.com" overflow="scroll"></iframe>
-				</section>
-				<section>
-					<h1>Properties & Values</h1>
-					<h1 class="fragment">Paint API</h1>
 				</section>
         <section>
           <h1>Properties & Values API</h1>
@@ -192,7 +398,74 @@ CSS.registerProperty({
         <section>
           <h2>"Typed CSS Variables"</h2>
         </section>
-        <!-- Example End -->
+        <section>
+            <h1>Typed OM</h1>
+            <a href="www.w3.org/TR/css-typed-om-1/" class="primaryLink">w3.org/TR/css-typed-om-1/</a>
+          </section>
+          <section>
+            Current CSSOM is <u>String Based</u>
+          </section>
+          <section>
+            "This specification introduces a new way to interact with underlying values, by representing them with specialized JS objects that can be manipulated and understood more easily and more reliably than string parsing/concatenation"
+            <small class="source">w3.org/TR/css-typed-om-1</small>
+          </section>
+          <section>
+            CSS values ➡️ typed JavaScript objects
+            <aside class="notes">exposes CSS values as typed JavaScript objects, instead of a simple strings -- this means performance improvements for the browser!</aside>
+          </section>
+          <section>
+            <div class="flex">
+            <code class="half code-editor smallerText">comment   \/\*[^*]*\*+([^/*][^*]*\*+)*\/
+    num       [0-9]+|[0-9]*"."[0-9]+
+    nonascii  [\200-\377]
+    nmstart   [_a-z]|{nonascii}|{escape}
+    nmchar    [_a-z0-9-]|{nonascii}|{escape}
+    name      {nmchar}+
+    ident     {nmstart}{nmchar}*</code>
+            <code class="half code-editor smallerText">ruleset
+    : selector [ ',' S* selector ]*
+      '{' S* declaration [ ';' S* declaration ]* '}' S*
+    ;
+    selector
+    : simple_selector [ combinator selector | S+ [ combinator? selector ]? ]?
+    ;
+    simple_selector
+    : element_name [ HASH | class | attrib | pseudo ]*
+    | [ HASH | class | attrib | pseudo ]+
+    ;
+    class
+    : '.' IDENT
+    ;
+    element_name
+    : IDENT | '*'
+    ;
+    attrib
+    : '[' S* IDENT S* [ [ '=' | INCLUDES | DASHMATCH ] S*
+      [ IDENT | STRING ] S* ] ']'
+    ;
+    pseudo
+    : ':' [ IDENT | FUNCTION S* [IDENT S*] ')' ]
+    ;</code>
+            </div>
+            <small class="source">html5rocks.com/en/tutorials/internals/howbrowserswork</small>
+            <aside class="notes">CSS parsing now</aside>
+          </section>
+          <section>
+            <img src="img/css-parsing.png" alt="">
+            <small class="source">html5rocks.com/en/tutorials/internals/howbrowserswork</small>
+            <aside class="notes">With Houdini, you can *tell* the browser what to expect. Instead of a string the browser needs to parse, the browser gets a CSS unit value object</aside>
+          </section>
+          <section>
+            <p>Current CSS:</p>
+            <code>element.attributeStyleMap.get('height') //returns string</code>
+            <div class="fragment">
+            <br>
+            <p>Houdini Typed OM:</p>
+            <code>element.computedStyleMap().get('height') //returns CSSUnitValue</code>
+            </div>
+            <br>
+            <small class="source">github.com/w3c/css-houdini-drafts/blob/master/css-typed-om/README.md</small>
+          </section>
       <section>
           <h1>Paint Worklet</h1>
           <h3>Candidate Recommendation</h3>
@@ -539,6 +812,269 @@ registerPaint('conic-gradient', class {
     <small class="source">css-houdini.rocks</small>
     <aside class="notes">Explain `&lt;color&gt;+` in the register proeprty means we can have an unlimited list of valeus to follow</aside>
   </section>
+  <section>
+      <h1>Layout Worklet</h1>
+      <a class="primaryLink" href="https://github.com/w3c/css-houdini-drafts/blob/master/css-layout-api/EXPLAINER.md">github.com/w3c/css-houdini-drafts</a>
+    </section>
+    <section data-markdown>
+      The CSS Layout API is designed to give web developers the ability to write their *own layout algorithms* in addition to the native algorithms user agents ship with today
+    </section>
+    <section data-background="white">
+      <img src="img/todaytomorrowlayouts.png" alt="">
+      <aside class="notes">Flexbox and Grid are great, but we can extend our own layouts now -- we don't have to wait for things like subgrid or masonry, where we move things around and they re-layout.</aside>
+    </section>
+<!-- Example Start -->
+<section>
+<div class="livecode stretch no-console no-preview">
+  <pre><code class="javascript" title="overview.js">
+registerLayout('sample-layout', class {
+// Properties to look for on calling element
+static get inputProperties() { return ['--foo']; }
+// Properties to look for on direct child elements
+static get childrenInputProperties() { return ['--bar']; }
+// Options for the Layout
+// `childDisplay` can be 'block' or 'normal'. 'block' is similar to children of flex and grid containers, 'normal'. Otherwise boxes won't be blockified
+// `sizing` can be 'block-like' or 'manual'. 'block-like' will make the Layout Constraints's inline size be fixed, and block size be calculated like border-box. Otherwise, it's just the calculated inlineSize and blockSize
+static get layoutOptions() {
+return {
+  childDisplay: 'normal',
+  sizing: 'block-like'
+};
+}
+
+// Generator functions instead of normal functions to support async/parallel layout engines
+// Determines how a box fits its content or fits in to our layout context
+*intrinsicSizes(children, edges, styleMap) {
+// children - Child elements of box being laid out
+// edges - Layout Edges of the box being
+// styleMap - Typed OM style map of box being laid out
+
+// Intrinsic sizes code goes here.
+}
+
+*layout(children, edges, constraints, styleMap, breakToken) {
+// children - Child elements of Parent Layout
+// edges - `LayoutEdges` of Parent Layout
+// constraints - `Layout Constraints` of Parent Layout
+// styleMap - Typed OM style map of Parent Layout
+// breakToken - Token (if paginating for printing for example) to resume layout at
+
+// Layout code goes here.
+}
+});</code></pre>
+</div>
+<small>houdini.glitch.me</small>
+</section>
+<!-- Example End -->
+<!-- Example Start -->
+<section>
+<div class="livecode stretch no-console">
+  <pre><code class="html" title="index.html">
+<main>
+<div>A</div>
+<div>B</div>
+<div>C</div>
+<div>D</div>
+</main>
+
+<!-- Register Module -->
+<script>
+CSS.layoutWorklet.addModule('random.js');
+</script>
+</code></pre>
+  <pre><code class="javascript" title="random.js">
+registerLayout("random", class {
+*intrinsicSizes() {}
+
+*layout(children, edges, constraintSpace, styles) {
+const childFragments = []
+console.log(constraintSpace);
+
+for(const child of children) {
+  const childFragment = yield child.layoutNextFragment();
+  console.log(childFragment);
+  childFragment.inlineOffset = Math.random() * constraintSpace.fixedInlineSize;
+  childFragment.blockOffset = Math.random() * constraintSpace.fixedBlockSize;
+  childFragments.push(childFragment);
+}
+return {
+  childFragments
+};
+}
+});
+
+/**
+* Copyright 2018 Google Inc. All Rights Reserved.
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*     http://www.apache.org/licenses/LICENSE-2.0
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</code></pre>
+  <pre><code class="css" title="style.css">
+main {
+width: 500px;
+height: 500px;
+outline: 1px solid black;
+display: layout(random);
+}
+div {
+width: 200px;
+height: 200px;
+background-color: hotpink;
+}
+</code></pre>
+</div>
+<small>github.com/GoogleChromeLabs/houdini-samples</small><br>
+<small><a href="/layoutTest.html">Open Example in New Window</a></small>
+</section>
+<!-- Example End -->
+<!-- Example Start -->
+<section>
+<div class="livecode stretch no-console">
+  <pre><code class="html" title="index.html">
+<div>1 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret. Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret.</div>
+<div>2 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret.</div>
+<div>3 Lorem ipsum dolor sit amet.</div>
+<div>4 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret.</div>
+<div>5 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an.</div>
+<div>6 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea.</div>
+<div>7 Lorem ipsum dolor sit amet, consul disputando ne his, et vim accumsan ponderum. Rebum deseruisse ex vix. Vix stet honestatis definitionem an, et natum ocurreret cum, semper interpretaris cu mea. Eam saperet fierent luptatum no. Ius ei dicunt detracto elaboraret.</div>
+
+<!-- Register Module -->
+<script>
+CSS.layoutWorklet.addModule('masonry.js');
+</script>
+</code></pre>
+<pre><code class="javascript" title="masonry.js">
+registerLayout('masonry', class {
+static get inputProperties() {
+return [ '--padding', '--columns' ];
+}
+
+*intrinsicSizes() { }
+*layout(children, edges, constraints, styleMap) {
+const inlineSize = constraints.fixedInlineSize;
+
+const padding = parseInt(styleMap.get('--padding').toString());
+const columnValue = styleMap.get('--columns').toString();
+
+// We also accept 'auto', which will select the BEST number of columns.
+let columns = parseInt(columnValue);
+if (columnValue == 'auto' || !columns) {
+  columns = Math.ceil(inlineSize / 350); // MAGIC NUMBER \o/.
+}
+
+// Layout all children with simply their column size.
+const childInlineSize = (inlineSize - ((columns + 1) * padding)) / columns;
+const childFragments = yield children.map((child) => {
+  return child.layoutNextFragment({fixedInlineSize: childInlineSize});
+});
+
+let autoBlockSize = 0;
+const columnOffsets = Array(columns).fill(0);
+for (let childFragment of childFragments) {
+  // Select the column with the least amount of stuff in it.
+  const min = columnOffsets.reduce((acc, val, idx) => {
+    if (!acc || val < acc.val) {
+      return {idx, val};
+    }
+
+    return acc;
+  }, {val: +Infinity, idx: -1});
+
+  childFragment.inlineOffset = padding + (childInlineSize + padding) * min.idx;
+  childFragment.blockOffset = padding + min.val;
+
+  columnOffsets[min.idx] = childFragment.blockOffset + childFragment.blockSize;
+  autoBlockSize = Math.max(autoBlockSize, columnOffsets[min.idx] + padding);
+}
+
+return {autoBlockSize, childFragments};
+}
+});
+
+/**
+* Copyright 2018 Google Inc. All Rights Reserved.
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*     http://www.apache.org/licenses/LICENSE-2.0
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</code></pre>
+  <pre><code class="css" title="style.css">
+body {
+display: layout(masonry);
+--padding: 20;
+--columns: 3;
+}
+
+div {
+background-color: #9365ff;
+color: white;
+font: 16px monospace;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 20px;
+}
+</code></pre>
+</div>
+<small>github.com/GoogleChromeLabs/houdini-samples</small>
+<aside class="notes">change number of columns and width of body</aside>
+</section>
+<!-- Example End -->
+    <section>
+      <h1>Animation Worklet</h1>
+    </section>
+    <section>
+      <p>"A new primitive for creating scroll-linked and other high performance procedural animations on the web"</p>
+      <small class="source">wicg.github.io/animation-worklet</small>
+    </section>
+    <section>
+      <div class="flex">
+      <div class="half">
+          <h2>Web Animation API</h2>
+          <ul style="font-size:70%">
+            <li class="fragment">Animation Timeline</li>
+            <li class="fragment">Document & Effect Timing</li>
+            <li class="fragment">Keyframe Model</li>
+          </ul>
+        </div>
+        <div class="half">
+          <h2>Animation Worklet</h2>
+          <ul style="font-size:70%">
+            <li class="fragment">Scroll-linked animations</li>
+            <li class="fragment">Dedicated Threads (run parallel)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section data-background="white">
+      <img src="img/AnimationWorklet-threading-model.svg" alt="">
+      <small class="source">W3C</small>
+      <aside class="notes">"Animation Worklet animations follow a different timing model that enables them to be script-driven, stateful, and runnable in a parallel worklet execution context. As such Web Animation APIs that seek or alter the input time (reverse, finish, etc.) have different semantics for Animation Worklet animations."</aside>
+    </section>
+    <section>
+      <iframe src="https://googlechromelabs.github.io/houdini-samples/animation-worklet/twitter-header/" width="100%;" height="600px" frameborder="0"></iframe>
+      <small class="source">googlechromelabs.github.io/houdini-samples/animation-worklet/twitter-header/</small>
+    </section>
+    <section>
+      <iframe src="https://googlechromelabs.github.io/houdini-samples/animation-worklet/spring-sticky/" width="100%;" height="600px" frameborder="0"></iframe>
+      <small class="source">googlechromelabs.github.io/houdini-samples/animation-worklet/spring-sticky/</small>
+    </section>
+    <section>
+      <p>Note: Today, the Animation API will only animate "fast" properties (like opacity and transform) and only items that can be composited</p>
+      <small class="source">http://houdini.glitch.me/animation</small>
+    </section>
 				
         <!-- EXAMPLES -->
         <section>
