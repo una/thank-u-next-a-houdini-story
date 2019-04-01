@@ -323,9 +323,9 @@ body {
   padding: 2rem;
   border: 1px solid;
   margin: 2rem;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   background: rgba(255, 255, 255, 0.1);
-  font-family: "Racing Sans One", Helvetica, sans-serif; }
+  font-family: 'Dank Mono', monospace; }
 
 .reveal .code-editor:hover,
 .reveal .code-editor:focus {
