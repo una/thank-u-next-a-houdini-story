@@ -835,9 +835,287 @@ registerPaint('conic-gradient', class {
     </h1>
     <img src="img/shape.png" alt="">
   </section>
+  <!-- Example Start -->
   <section>
-    -- TODO: Material Demo Here --
+    <div class="livecode stretch no-console">
+      <pre><code class="html" title="index.html">  <!-- Include MDC Package -->
+  <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+
+  <!-- Content -->
+  <h2>Material Button</h2>
+  <button class="mdc-button">Button</button>
+  <button class="mdc-button mdc-button--outlined">Button</button>
+  <button class="mdc-button mdc-button--unelevated">Button</button>
+  <button class="mdc-button mdc-button--raised">Button</button>
+
+  <h2>Notched Button Masked</h2>
+  <button class="notched mdc-button">Button</button>
+  <button class="notched mdc-button mdc-button--outlined">Button</button>
+  <button class="notched mdc-button mdc-button--unelevated">Button</button>
+  <button class="notched mdc-button mdc-button--raised">Button</button>
+
+  <h2>Notched Button Background</h2>
+  <button class="notched background mdc-button">Button</button>
+  <button class="notched background mdc-button mdc-button--outlined">Button</button>
+  <button class="notched background mdc-button mdc-button--unelevated">Button</button>
+  <button class="notched background mdc-button mdc-button--raised">Button</button>
+
+  <h2>Notched Button Background Outlined</h2>
+  <button class="notched background outlined mdc-button">Button</button>
+  <button class="notched background outlined mdc-button mdc-button--outlined">Button</button>
+  <button class="notched background outlined mdc-button mdc-button--unelevated">Button</button>
+  <button class="notched background outlined mdc-button mdc-button--raised">Button</button>
+
+  <!-- Required MDC Web JavaScript library -->
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Register Module -->
+  <script>
+    CSS.paintWorklet.addModule('notched-corners.js');
+  </script>
+  </code></pre>
+      <pre><code class="javascript" title="notched-corners.js">
+  // Adapted from https://css-houdini.rocks/corner-shape/ for Material Shapes
+
+  registerPaint('notched-corners', class {
+      static get inputProperties() {
+          return [
+              '--corner-radius',
+              '--paint-style',
+              '--stroke-weight',
+              '--paint-color'
+          ]
+      }
+      paint(ctx, geom, properties) {
+          let radii = properties.get('--corner-radius').toString().replace(/px/g, '').split(' ').slice(1)
+          const inset = parseInt(properties.get('--stroke-weight')[0])/2 || 0
+          const radius1 = radii[0]
+          const radius2 = radii[1]
+          const radius3 = radii[2]
+          const radius4 = radii[3]
+  
+          const points = [
+              {x: inset, y: radius1}, //x0,y0
+              {x: radius1, y: inset}, //x2,y2
+              {x: geom.width - radius2, y: inset}, //x3,y3
+              {x: geom.width - inset, y: radius2}, //x4,y4
+              {x: geom.width - inset, y: geom.height - radius3}, //x5,y5
+              {x: geom.width - radius3, y: geom.height - inset}, //x6,y6
+              {x: radius4, y: geom.height - inset}, //x7,y7
+              {x: inset, y: geom.height - radius4}, //x8,y8
+          ]
+  
+          ctx.fillStyle = properties.get('--paint-color')
+  
+          ctx.beginPath()
+          ctx.moveTo(points[0].x, points[0].y) //x0,y0
+          ctx.lineTo(points[1].x, points[1].y)
+          ctx.lineTo(points[2].x, points[2].y)
+          ctx.lineTo(points[3].x, points[3].y)
+          ctx.lineTo(points[4].x, points[4].y)
+          ctx.lineTo(points[5].x, points[5].y)
+          ctx.lineTo(points[6].x, points[6].y)
+          ctx.lineTo(points[7].x, points[7].y)
+          ctx.closePath()
+          ctx.lineTo(points[0].x, points[0].y)
+  
+          if (properties.get('--paint-style').toString() === ' outline') {
+              console.log('stroke', inset)
+              ctx.strokeStyle = properties.get('--paint-color')
+              ctx.lineWidth= properties.get('--stroke-weight')
+              ctx.stroke()
+          } else {
+              console.log('fill', inset)
+              ctx.fill()
+          }
+      }
+  })
+  </code></pre>
+      <pre><code class="css" title="style.css">
+  .notched {
+    --corner-radius: 12px 0 0 0;
+    --paint-color: black;
+    --paint-style: fill;
+    --stroke-weight: 0;
+    
+    -webkit-mask: paint(notched-corners);
+  }
+
+  .background,
+  .outlined {
+    --paint-color: #6200ee;
+    -webkit-mask: none;
+    background: paint(notched-corners);
+
+    /* MDC Remove Style */
+    background-color: none;
+  }
+
+  .outlined {
+    --paint-style: outline;
+    --stroke-weight: 1;
+    border: none;
+  }
+
+  h2 {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  /* Theming the button */
+  .mdc-button {
+    border-radius: 0;
+  }
+  </code></pre>
+    </div>
   </section>
+  <!-- Example End -->
+  <!-- Example Start -->
+  <section>
+    <div class="livecode stretch no-console">
+      <pre><code class="html" title="index.html">  <!-- Include MDC Package -->
+  <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+
+  <!-- Content -->
+  <h2>Material Button</h2>
+  <button class="mdc-button">Button</button>
+  <button class="mdc-button mdc-button--outlined">Button</button>
+  <button class="mdc-button mdc-button--unelevated">Button</button>
+  <button class="mdc-button mdc-button--raised">Button</button>
+
+  <h2>Notched Button Adjusted</h2>
+  <button class="notched no-fill mdc-button">Button</button>
+  <button class="notched outline mdc-button mdc-button--outlined">Button</button>
+  <button class="notched fill-flat mdc-button mdc-button--unelevated">Button</button>
+  <button class="notched fill-raised mdc-button mdc-button--raised">Button</button>
+
+  <!-- Required MDC Web JavaScript library -->
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+  <!-- Register Module -->
+  <script>
+    CSS.paintWorklet.addModule('notched-corners.js');
+  </script>
+  </code></pre>
+      <pre><code class="javascript" title="notched-corners.js">
+  // Adapted from https://css-houdini.rocks/corner-shape/ for Material Shapes
+
+  registerPaint('notched-corners', class {
+      static get inputProperties() {
+          return [
+              '--corner-radius',
+              '--paint-style',
+              '--stroke-weight',
+              '--paint-color'
+          ]
+      }
+      paint(ctx, geom, properties) {
+          let radii = properties.get('--corner-radius').toString().replace(/px/g, '').split(' ').slice(1)
+          const inset = parseInt(properties.get('--stroke-weight')[0])/2 || 0
+          const radius1 = radii[0]
+          const radius2 = radii[1]
+          const radius3 = radii[2]
+          const radius4 = radii[3]
+  
+          const points = [
+              {x: inset, y: radius1}, //x0,y0
+              {x: radius1, y: inset}, //x2,y2
+              {x: geom.width - radius2, y: inset}, //x3,y3
+              {x: geom.width - inset, y: radius2}, //x4,y4
+              {x: geom.width - inset, y: geom.height - radius3}, //x5,y5
+              {x: geom.width - radius3, y: geom.height - inset}, //x6,y6
+              {x: radius4, y: geom.height - inset}, //x7,y7
+              {x: inset, y: geom.height - radius4}, //x8,y8
+          ]
+  
+          ctx.fillStyle = properties.get('--paint-color')
+  
+          ctx.beginPath()
+          ctx.moveTo(points[0].x, points[0].y) //x0,y0
+          ctx.lineTo(points[1].x, points[1].y)
+          ctx.lineTo(points[2].x, points[2].y)
+          ctx.lineTo(points[3].x, points[3].y)
+          ctx.lineTo(points[4].x, points[4].y)
+          ctx.lineTo(points[5].x, points[5].y)
+          ctx.lineTo(points[6].x, points[6].y)
+          ctx.lineTo(points[7].x, points[7].y)
+          ctx.closePath()
+          ctx.lineTo(points[0].x, points[0].y)
+  
+          if (properties.get('--paint-style').toString() === ' outline') {
+              console.log('stroke', inset)
+              ctx.strokeStyle = properties.get('--paint-color')
+              ctx.lineWidth= properties.get('--stroke-weight')
+              ctx.stroke()
+          } else {
+              console.log('fill', inset)
+              ctx.fill()
+          }
+      }
+  })
+  </code></pre>
+      <pre><code class="css" title="style.css">
+  .notched {
+    --corner-radius: 12px 0 0 0;
+    --paint-color: #6200ee;
+    --paint-style: fill;
+    --stroke-weight: 0;
+  }
+
+  .no-fill,
+  .fill-flat {
+    --paint-color: black;
+    -webkit-mask: paint(notched-corners);
+  }
+
+  .outline {
+    --stroke-weight: 1;
+    --paint-style: outline;
+
+   border-image: paint(notched-corners) 1 fill;
+  }
+
+  .outline::before,
+  .outline::after,
+  .fill-raised::before,
+  .fill-raised::after {
+    --paint-style: fill;
+    -webkit-mask: paint(notched-corners);
+
+    /* Alter MDC Style */
+    top: -1px;
+    left: -1px;
+    border-radius: 0;
+  }
+
+  .fill-raised {
+    background: paint(notched-corners);
+
+    /* Alter MDC Style */
+    filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.2));
+    transition-property: filter;
+
+    /* Remove MDC Overrides */
+    box-shadow: none !important;
+    background-color: initial !important;
+  }
+
+  .fill-raised:hover, 
+  .fill-raised:focus {
+    filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.4))
+  }
+
+  h2 {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  /* Theming the button */
+  .mdc-button {
+    border-radius: 0;
+  }
+  </code></pre>
+    </div>
+  </section>
+  <!-- Example End -->
   <section>
       <h1>Layout Worklet</h1>
       <a class="primaryLink" href="https://github.com/w3c/css-houdini-drafts/blob/master/css-layout-api/EXPLAINER.md">github.com/w3c/css-houdini-drafts</a>
