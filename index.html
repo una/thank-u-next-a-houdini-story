@@ -32,9 +32,6 @@
           <p style="color: white"><img style="height: 4rem; width: auto; margin: 0 0 1rem; vertical-align: middle;" src="img/logos/twitterlogo.png" alt=""> @una</p>
           <img src="img/logos/me2.png" alt="">
         </section>
-        <section>
-          Next Week I'm Joining Google!
-        </section>
 				<section>
 					<h2>She taught me...</h2>
 					<ul>
@@ -247,6 +244,16 @@
             <small class="source">developer.mozilla.org/docs/Web/CSS/border</small>
           </section>
           <section>
+            <img src="img/corner1.png" alt="">
+          </section>
+          <section>
+            <img src="img/corner2.png" alt="">
+          </section>
+          <section>
+            <p>Corner Shape<span class="fragment">🚫</span></p>
+            <img src="img/cssbgsborders.png" alt="">
+          </section>
+          <section>
             <h1>Houdini!!</h1>
             <aside class="notes">(transition) But with Houdini, we can make these things not only possible, but do it before browser vendors implement them, and make them available cross-browser
               </aside>
@@ -359,7 +366,7 @@ CSS.registerProperty({
             <li><span>"&lt;transform-function&gt;"</span>: Any valid &lt;transform-function> value</li>
             <li><span>"&lt;custom-ident&gt;"</span>:Any valid &lt;custom-ident> value</li>
           </ul>
-          <small class="source">https://drafts.css-houdini.org/css-properties-values-api/ | 13 February 2019</small>
+          <small class="source">https://drafts.css-houdini.org/css-properties-values-api/ | 7 May 2019</small>
         </section>
         <!-- Example Start -->
         <section>
@@ -407,7 +414,7 @@ CSS.registerProperty({
           <h1>CSS Systems</h1>
         </section>
         <section>
-            <h1>Typed OM</h1>
+            <h1>Typed Object Model (OM)</h1>
             <a href="www.w3.org/TR/css-typed-om-1/" class="primaryLink">w3.org/TR/css-typed-om-1/</a>
           </section>
           <section>
@@ -464,16 +471,43 @@ CSS.registerProperty({
             <aside class="notes">With Houdini, you can *tell* the browser what to expect. Instead of a string the browser needs to parse, the browser gets a CSS unit value object</aside>
           </section>
           <section>
+            Less String Parsing = Better Performance
+          </section>
+          <section>
             <p>Set Value:</p>
-            <code>element.attributeStyleMap.get('height') //returns CSSUnitValue</code>
+            <code>element.attributeStyleMap.set('height') //sets CSSUnitValue</code>
             <div class="fragment">
             <br>
             <p>Computed Value:</p>
             <code>element.computedStyleMap().get('height') //returns CSSUnitValue</code>
             </div>
             <br>
-            <small class="source">github.com/w3c/css-houdini-drafts/blob/master/css-typed-om/README.md</small>
+            <small class="source">drafts.css-houdini.org/css-typed-om</small>
           </section>
+<!-- Example Start -->
+<section>
+  <p>Typed OM</p>
+  <div class="livecode stretch">
+    <pre><code class="html" title="index.html">
+  <div class="box"></div>
+</code></pre>
+    <pre><code class="css" title="style.css">
+  .box {
+    width: 300px;
+    height: 200px;
+    background-color: hotpink;
+  }
+</code></pre>
+<pre><code class="javascript" title="explore.js">
+  const box = document.querySelector('.box')
+
+  // box.attributeStyleMap.set("opacity", CSS.number(0.5))
+  console.log(box.computedStyleMap().get('height'))
+  console.log(box.computedStyleMap().get('opacity'))
+  </code></pre>
+  </div>
+</section>
+<!-- Example End -->
       <section>
           <h1>Paint Worklet</h1>
           <a style="font-size: 2rem" href="https://drafts.css-houdini.org/css-paint-api/">https://drafts.css-houdini.org/css-paint-api/</a>
@@ -491,107 +525,6 @@ CSS.registerProperty({
             Service workers run in a separate process outside of your browser JS, before you even hit the page. They can be used for serving content offline, sending push notifications when you're not on the site, and a lot more because of how they're downloaded and stored for future use.
           </aside>
         </section>
-<!-- Example Start -->
-<section>
-    <div class="livecode stretch no-console">
-      <pre><code class="html" title="index.html">
-<header class="placeholder"></header>
-<div class="content-wrapper">
-  <main>
-    <h1>Awesome Mockup</h1>
-    <p>This uses placeholder boxes created with the CSS Paint API. Neat! You can resize them by dragging their bottom right corners.</p>
-    <div class="row">
-      <div class="placeholder"></div>
-      <div class="placeholder"></div>
-      <div class="placeholder"></div>
-    </div>
-  </main>
-  <aside>
-    <div class="placeholder"></div>
-  </aside>
-</div>
-
-  <!-- Register Module -->
-  <script>
-    CSS.paintWorklet.addModule('PlaceholderBoxPainter.js');
-  </script>
-  </code></pre>
-      <pre><code class="javascript" title="PlaceholderBoxPainter.js">
-if (typeof registerPaint !== 'undefined') {
-  class PlaceholderBoxPainter {
-    paint(ctx, size) {
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = '#666';
-
-      // draw line from top left to bottom right
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(size.width, size.height);
-      ctx.stroke();
-
-      // draw line from top right to bottom left
-      ctx.beginPath();
-      ctx.moveTo(size.width, 0);
-      ctx.lineTo(0, size.height);
-      ctx.stroke();
-    }
-  }
-
-  registerPaint('placeholder-box', PlaceholderBoxPainter);
-}
-  </code></pre>
-      <pre><code class="css" title="style.css">
-.placeholder {
-  background-image: paint(placeholder-box);
-
-  background-color: #fff;
-  max-width: 100%;
-  border: 2px solid #666;
-  overflow: auto;
-  resize: both;
-}
-
-header {
-  width: 600px;
-  height: 100px;
-  margin: 0 auto;
-}
-
-.content-wrapper {
-  display: flex;
-  width: 600px;
-  margin: 40px auto 0;
-  font-size: 1.25rem;
-  line-height: 1;
-}
-
-main {
-  width: 440px;
-  font-family: 'Dank Mono';
-}
-
-main .placeholder {
-  float: left;
-  width: 100px;
-  height: 100px;
-  margin: 10px;
-}
-
-aside {
-  width: 140px;
-  margin-left: 20px;
-}
-
-aside .placeholder {
-  width: 140px;
-  height: 320px;
-  margin: 0 auto;
-}     
-  </code></pre>
-    </div>
-    <small>by Will Boyd: codepen.io/lonekorean/pen/wmwJQX</small>
-  </section>
-  <!-- Example End -->
   <section data-background="white">
     <img src="img/houdinidiagram2.png" alt="">
   </section>
@@ -821,6 +754,9 @@ registerPaint('conic-gradient', class {
   </section>
   <section>
     <h1>Extending the Web</h1>
+  </section>
+  <section>
+    <img src="img/leaverou.png" alt="">
   </section>
   <section data-background="#e5e5e5">
     <h3 style="margin-bottom: -3rem;z-index: 3;position: relative;">Material Design</h3>
@@ -1192,7 +1128,6 @@ registerLayout("random", class {
 
 *layout(children, edges, constraintSpace, styles) {
 const childFragments = []
-console.log(constraintSpace);
 
 for(const child of children) {
   const childFragment = yield child.layoutNextFragment();
@@ -1404,7 +1339,7 @@ padding: 20px;
           <code>@supports (background: paint(something)) { ... }</code>
         </section>
         <section>
-          <a href="https://codepen.io/una/pen/e2e7266b20e6dffc5cecc1a985bcc91b?editors">1. Start with Canvas</a>
+          <a href="https://codepen.io/una/pen/311c9e1476555c4e81c5b9f78f4e096a">1. Start with Canvas</a>
           <aside class="notes">The paint API is kind of tricky to deal with, so let's start with Canvas -- there are a LOT of similarities here</aside>
         </section>
         <section>
@@ -1898,14 +1833,11 @@ padding: 20px;
     </section>
     <!-- Example End -->
         </section>
-        <section>
-          <a href="https://extra-css.netlify.com">Super Secret WIP</a>
-        </section>
         <section class="song">
           <h2 class="shadow">Thank U, Next (CSS)</h2>
           <p>Thought I'd try out <span class="superUnderline">Bootstrap</span>,<br>
             But it wasn't a <span class="crossOut">match</span>,<br>
-            Made a website with <span class="superUnderline">Stylus</span>,<br>
+            Built a website with <span class="superUnderline">Stylus</span>,<br>
             Now i view source and laugh,<br>
             Even almost went native,<br>
             For <span class="superUnderline">CSS</span> I'm so thankful,<br>
